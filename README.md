@@ -56,7 +56,7 @@
     - [ ] [Обмеження швидкості](./docs/rate-limiting.md)
     - [ ] [Планування задач](./docs/scheduling.md)
 - #### Безпека
-    - [ ] [Аутентифікація](./docs/authentication.md)
+    - [x] [Автентифікація](./docs/authentication.md)
     - [ ] [Авторизація](./docs/authorization.md)
     - [ ] [Підтвердження електронної пошти](./docs/verification.md)
     - [ ] [Шифрування](./docs/encryption.md)
@@ -83,7 +83,9 @@
     - [ ] [Браузерні тести](./docs/dusk.md)
     - [ ] [База даних](./docs/database-testing.md)
     - [ ] [Імітація](./docs/mocking.md)
-
+- #### Пакети
+    - [x] [*Breeze*](./docs/starter-kits.md#laravel-breeze) – легка реалізація аутентифікації Laravel для ознайомлення з функціоналом. Включає в себе прості шаблони Blade, стилізовані за допомогою Tailwind CSS. Містить маршрути для публікації.
+	
 <a name="license"></a>
 ### Ліцензія
 Посилання на офіційну [ліцензію](https://github.com/laravel/docs/blob/9.x/license.md) документації **laravel/docs**.
