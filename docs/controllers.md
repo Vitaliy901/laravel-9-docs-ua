@@ -1,4 +1,4 @@
-# Controllers
+# Контроллери
 
 - [Вступ](#introduction)
 - [Написання контроллерів](#writing-controllers)
