@@ -531,10 +531,10 @@ class PostController extends Controller
 		}
 
 		// Отримати масив з провалідованими вхідними даними ...
-		$validated = $validator->validated();
+		$validated = $validator->validated(): array;
 
 		// Отримати вміст окремо взятого провалідованого поля ...
-		$validated = $request->validated('email');
+		$validated = $validator->validated('email'): array;
 
 		// Зберегти повідомлення в блозі ...
 	}
