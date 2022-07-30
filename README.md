@@ -70,7 +70,7 @@
     - [ ] [Наповнення фіктивними даними](./docs/seeding.md)
     - [ ] [Використання Redis](./docs/redis.md)
 - #### Eloquent ORM
-    - [ ] [Початок роботи](./docs/eloquent.md)
+    - [x] [Початок роботи](./docs/eloquent.md)
     - [ ] [Відношення](./docs/eloquent-relationships.md)
     - [ ] [Колекції](./docs/eloquent-collections.md)
     - [ ] [Мутатори та типізатори](./docs/eloquent-mutators.md)
