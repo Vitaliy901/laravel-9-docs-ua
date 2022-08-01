@@ -1,4 +1,4 @@
-# Eloquent: Починаймо
+# Eloquent: Початок
 
 - [Вступ](#introduction)
 - [Створення Модельних Класів](#generating-model-classes)
