@@ -28,7 +28,7 @@
     - [ ] [Посередники](./docs/middleware.md)
     - [ ] [Попередження атак CSRF](./docs/csrf.md)
     - [x] [Контроллери](./docs/controllers.md)
-    - [ ] [HTTP-запити](./docs/requests.md)
+    - [x] [HTTP-запити](./docs/requests.md)
     - [ ] [HTTP-відповіді](./docs/responses.md)
     - [ ] [HTML-шаблони](./docs/views.md)
     - [ ] [Шаблонізатор Blade](./docs/blade.md)
