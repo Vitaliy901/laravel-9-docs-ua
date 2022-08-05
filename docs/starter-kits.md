@@ -60,7 +60,8 @@ php artisan migrate
 
 Далі, можна перейти у своєму веб-браузері за URL-адресами вашого додатка `/login` або `/register`. Усі маршрути Breeze визначено у файлі `routes/auth.php`.
 
-> {tip} Щоб дізнатися більше про компіляцію CSS та JavaScript вашого додатку, ознайомтеся з [документацією Laravel Vite](vite.md#configuring-vite).
+> **Note**  
+> Щоб дізнатися більше про компіляцію CSS та JavaScript вашого додатку, ознайомтеся з [документацією Laravel Vite](vite.md#configuring-vite).
 
 <a name="breeze-and-inertia"></a>
 ### Breeze и React / Vue

@@ -63,8 +63,8 @@
     - [ ] [Хешування](./docs/hashing.md)
     - [ ] [Скидання пароля](./docs/passwords.md)
 - #### База данных
-    - [ ] [Початок роботи](./docs/database.md)
-    - [ ] [Конструктор запитів](./docs/queries.md)
+    - [x] [Початок роботи](./docs/database.md)
+    - [x] [Конструктор запитів](./docs/queries.md)
     - [ ] [Пагінація](./docs/pagination.md)
     - [ ] [Миграції](./docs/migrations.md)
     - [ ] [Наповнення фіктивними даними](./docs/seeding.md)
