@@ -222,8 +222,8 @@ $price = DB::table('orders')->max('price');
 
 ```php
 $price = DB::table('orders')
-				->where('finalized', 1)
-				->avg('price');
+			->where('finalized', 1)
+			->avg('price');
 ```
 
 <a name="determining-if-records-exist"></a>
@@ -277,10 +277,10 @@ $users = $query->addSelect('age')->get();
 
 ```php
 $users = DB::table('users')
-				->select(DB::raw('count(*) as user_count, status'))
-				->where('status', '<>', 1)
-				->groupBy('status')
-				->get();
+			->select(DB::raw('count(*) as user_count, status'))
+			->where('status', '<>', 1)
+			->groupBy('status')
+			->get();
 ```
 > **Warning**  
 > Необроблені оператори будуть вставлені в запит як рядки, тому ви повинні бути надзвичайно обережними, щоб уникнути створення вразливостей SQL-ін’єкцій.
@@ -298,8 +298,8 @@ $users = DB::table('users')
 
 ```php
 $orders = DB::table('orders')
-				->selectRaw('price * ? as price_with_tax', [1.0825])
-				->get();
+			->selectRaw('price * ? as price_with_tax', [1.0825])
+			->get();
 ```
 
 <a name="whereraw-orwhereraw"></a>
@@ -309,8 +309,8 @@ $orders = DB::table('orders')
 
 ```php
 $orders = DB::table('orders')
-				->whereRaw('price > IF(state = "TX", ?, 100)', [200])
-				->get();
+			->whereRaw('price > IF(state = "TX", ?, 100)', [200])
+			->get();
 ```
 <a name="havingraw-orhavingraw"></a>
 #### `havingRaw / orHavingRaw`
@@ -319,10 +319,10 @@ $orders = DB::table('orders')
 
 ```php
 $orders = DB::table('orders')
-				->select('department', DB::raw('SUM(price) as total_sales'))
-				->groupBy('department')
-				->havingRaw('SUM(price) > ?', [2500])
-				->get();
+			->select('department', DB::raw('SUM(price) as total_sales'))
+			->groupBy('department')
+			->havingRaw('SUM(price) > ?', [2500])
+			->get();
 ```
 
 <a name="orderbyraw"></a>
@@ -332,8 +332,8 @@ $orders = DB::table('orders')
 
 ```php
 $orders = DB::table('orders')
-				->orderByRaw('updated_at - created_at DESC')
-				->get();
+			->orderByRaw('updated_at - created_at DESC')
+			->get();
 ```
 
 <a name="groupbyraw"></a>
@@ -343,9 +343,9 @@ $orders = DB::table('orders')
 
 ```php
 $orders = DB::table('orders')
-				->select('city', 'state')
-				->groupByRaw('city, state')
-				->get();
+			->select('city', 'state')
+			->groupByRaw('city, state')
+			->get();
 ```
 
 <a name="joins"></a>
@@ -421,9 +421,9 @@ DB::table('users')
 
 ```php
 $latestPosts = DB::table('posts')
-					->select('user_id', DB::raw('MAX(created_at) as last_post_created_at'))
-					->where('is_published', true)
-					->groupBy('user_id');
+				->select('user_id', DB::raw('MAX(created_at) as last_post_created_at'))
+				->where('is_published', true)
+				->groupBy('user_id');
 
 $users = DB::table('users')
 		->joinSub($latestPosts, 'latest_posts', function ($join) {
@@ -461,9 +461,9 @@ $users = DB::table('users')
 
 ```php
 $users = DB::table('users')
-				->where('votes', '=', 100)
-				->where('age', '>', 35)
-				->get();
+			->where('votes', '=', 100)
+			->where('age', '>', 35)
+			->get();
 ```
 Для зручності, якщо ви хочете перевірити, що стовпець відповідає `=` заданому значенню, ви можете передати значення як другий аргумент методу where. Laravel припустить, що ви хочете використовувати оператор `=`:
 
@@ -475,16 +475,16 @@ $users = DB::table('users')->where('votes', 100)->get();
 
 ```php
 $users = DB::table('users')
-				->where('votes', '>=', 100)
-				->get();
+			->where('votes', '>=', 100)
+			->get();
 
 $users = DB::table('users')
-				->where('votes', '<>', 100)
-				->get();
+			->where('votes', '<>', 100)
+			->get();
 
 $users = DB::table('users')
-				->where('name', 'like', 'T%')
-				->get();
+			->where('name', 'like', 'T%')
+			->get();
 ```
 Ви також можете передати масив умов до функції `where`. Кожен елемент масиву має бути масивом, що містить три аргументи, які зазвичай передаються методу `where`:
 
@@ -505,9 +505,9 @@ $users = DB::table('users')->where([
 
 ```php
 $users = DB::table('users')
-					->where('votes', '>', 100)
-					->orWhere('name', 'John')
-					->get();
+			->where('votes', '>', 100)
+			->orWhere('name', 'John')
+			->get();
 ```
 Якщо вам потрібно згрупувати умову "OR" у круглих дужках, ви можете передати замикання першим аргументом методу `orWhere`:
 
@@ -550,33 +550,33 @@ Laravel також підтримує запити в базах даних, я�
 
 ```php
 $users = DB::table('users')
-				->where('preferences->dining->meal', 'salad')
-				->get();
+			->where('preferences->dining->meal', 'salad')
+			->get();
 ```
 Ви можете використовувати `whereJsonContains` для запиту масивів JSON. Ця функція не підтримується базою даних SQLite:
 
 ```php
 $users = DB::table('users')
-				->whereJsonContains('options->languages', 'en')
-				->get();
+			->whereJsonContains('options->languages', 'en')
+			->get();
 ```
 Якщо ваш додаток використовує бази даних MySQL або PostgreSQL, ви можете передати масив значень методу `whereJsonContains`:
 
 ```php
 $users = DB::table('users')
-				->whereJsonContains('options->languages', ['en', 'de'])
-				->get();
+			->whereJsonContains('options->languages', ['en', 'de'])
+			->get();
 ```
 Ви можете використовувати метод `whereJsonLength` для запиту масивів JSON за їх довжиною:
 
 ```php
-    $users = DB::table('users')
-                    ->whereJsonLength('options->languages', 0)
-                    ->get();
+$users = DB::table('users')
+			->whereJsonLength('options->languages', 0)
+			->get();
 
-    $users = DB::table('users')
-                    ->whereJsonLength('options->languages', '>', 1)
-                    ->get();
+$users = DB::table('users')
+			->whereJsonLength('options->languages', '>', 1)
+			->get();
 ```
 <a name="additional-where-clauses"></a>
 ### Додаткові вирази Where
@@ -732,12 +732,12 @@ select * from users where name = 'John' and (votes > 100 or title = 'Admin')
 
 ```php
 $users = DB::table('users')
-			->whereExists(function ($query) {
-				$query->select(DB::raw(1))
-						->from('orders')
-						->whereColumn('orders.user_id', 'users.id');
-			})
-			->get();
+		->whereExists(function ($query) {
+			$query->select(DB::raw(1))
+					->from('orders')
+					->whereColumn('orders.user_id', 'users.id');
+		})
+		->get();
 ```
 Наведений вище запит створить наступний SQL:
 
@@ -802,16 +802,16 @@ $users = DB::table('users')
 
 ```php
 $users = DB::table('users')
-				->orderBy('name', 'desc')
-				->get();
+			->orderBy('name', 'desc')
+			->get();
 ```
 Щоб відсортувати за кількома стовпцями, ви можете просто викликати `orderBy` стільки разів, скільки потрібно:
 
 ```php
 $users = DB::table('users')
-				->orderBy('name', 'desc')
-				->orderBy('email', 'asc')
-				->get();
+			->orderBy('name', 'desc')
+			->orderBy('email', 'asc')
+			->get();
 ```
 <a name="latest-oldest"></a>
 #### Методи `latest` і `oldest`
@@ -820,8 +820,8 @@ $users = DB::table('users')
 
 ```php
 $user = DB::table('users')
-				->latest()
-				->first();
+			->latest()
+			->first();
 ```
 <a name="random-ordering"></a>
 #### Випадкове сортування
@@ -860,26 +860,26 @@ $usersOrderedByEmail = $query->reorder('email', 'desc')->get();
 
 ```php
 $users = DB::table('users')
-				->groupBy('account_id')
-				->having('account_id', '>', 100)
-				->get();
+			->groupBy('account_id')
+			->having('account_id', '>', 100)
+			->get();
 ```
 Ви можете використовувати метод `havingBetween` для фільтрації результатів у заданому діапазоні:
 
 ```php
 $report = DB::table('orders')
-				->selectRaw('count(id) as number_of_orders, customer_id')
-				->groupBy('customer_id')
-				->havingBetween('number_of_orders', [5, 15])
-				->get();
+			->selectRaw('count(id) as number_of_orders, customer_id')
+			->groupBy('customer_id')
+			->havingBetween('number_of_orders', [5, 15])
+			->get();
 ```
 Ви можете передати кілька аргументів методу `groupBy` для групування за кількома стовпцями:
 
 ```php
 $users = DB::table('users')
-				->groupBy('first_name', 'status')
-				->having('account_id', '>', 100)
-				->get();
+			->groupBy('first_name', 'status')
+			->having('account_id', '>', 100)
+			->get();
 ```
 Щоб побудувати розширені вирази `having`, перегляньте метод [`havingRaw`](#raw-methods).
 
@@ -898,9 +898,9 @@ $users = DB::table('users')->skip(10)->take(5)->get();
 
 ```php
 $users = DB::table('users')
-				->offset(10)
-				->limit(5)
-				->get();
+			->offset(10)
+			->limit(5)
+			->get();
 ```
 <a name="conditional-clauses"></a>
 ## Умовні вирази
@@ -911,10 +911,10 @@ $users = DB::table('users')
 $role = $request->input('role');
 
 $users = DB::table('users')
-				->when($role, function ($query, $role) {
-					$query->where('role_id', $role);
-				})
-				->get();
+			->when($role, function ($query, $role) {
+				$query->where('role_id', $role);
+			})
+			->get();
 ```
 Метод `when` виконує вказане замикання лише тоді, коли перший аргумент є істинним. Якщо перший аргумент false, замикання не буде виконано. Отже, у наведеному вище прикладі замикання, надане методу `when`, буде викликано, лише якщо поле `role` присутнє у вхідному запиті та оцінюється як `true`.
 
@@ -924,12 +924,12 @@ $users = DB::table('users')
 $sortByVotes = $request->input('sort_by_votes');
 
 $users = DB::table('users')
-				->when($sortByVotes, function ($query, $sortByVotes) {
-					$query->orderBy('votes');
-				}, function ($query) {
-					$query->orderBy('name');
-				})
-				->get();
+			->when($sortByVotes, function ($query, $sortByVotes) {
+				$query->orderBy('votes');
+			}, function ($query) {
+				$query->orderBy('name');
+			})
+			->get();
 ```
 <a name="insert-statements"></a>
 ## Вставка
@@ -1008,8 +1008,8 @@ DB::table('flights')->upsert(
 
 ```php
 $affected = DB::table('users')
-				->where('id', 1)
-				->update(['votes' => 1]);
+			->where('id', 1)
+			->update(['votes' => 1]);
 ```
 <a name="update-or-insert"></a>
 #### Оновлення або вставка
@@ -1037,8 +1037,8 @@ DB::table('users')
 
 ```php
 $affected = DB::table('users')
-				->where('id', 1)
-				->update(['options->enabled' => true]);
+			->where('id', 1)
+			->update(['options->enabled' => true]);
 ```
 
 <a name="increment-and-decrement"></a>
@@ -1090,17 +1090,17 @@ DB::table('users')->truncate();
 
 ```php
 DB::table('users')
-		->where('votes', '>', 100)
-		->sharedLock()
-		->get();
+	->where('votes', '>', 100)
+	->sharedLock()
+	->get();
 ```
 Крім того, ви можете використовувати метод `lockForUpdate`. Блокування «для оновлення» запобігає зміні обраних записів або їх вибору за допомогою іншого спільного блокування:
 
 ```php
 DB::table('users')
-		->where('votes', '>', 100)
-		->lockForUpdate()
-		->get();
+	->where('votes', '>', 100)
+	->lockForUpdate()
+	->get();
 ```
 
 <a name="debugging"></a>
