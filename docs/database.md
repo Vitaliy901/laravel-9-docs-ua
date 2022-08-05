@@ -5,7 +5,7 @@
     - [Підключення для читання та запису](#read-and-write-connections)
 - [Виконання запитів SQL](#running-queries)
     - [Використання кількох підключень до бази даних](#using-multiple-database-connections)
-    - [Прослуховування подій запиту](#listening-for-query-events)
+    - [Прослуховування подій запита](#listening-for-query-events)
     - [Моніторинг загального часу запита](#monitoring-cumulative-query-time)
 - [Транзакції бази даних](#database-transactions)
 - [Підключення до бази даних за допомогою інтерфейсу командного рядка CLI](#connecting-to-the-database-cli)
@@ -16,7 +16,7 @@
 Майже кожен сучасний веб-додаток взаємодіє з базою даних. Laravel надзвичайно спрощує взаємодію з базами даних за допомогою різноманітної підтримки баз даних, використовуючи чистий SQL [конструктора запитів](queries) і [Eloquent ORM](eloquent). Наразі Laravel надає першу підтримку для п’яти баз даних: 
 
 
-Almost every modern web application interacts with a database. Laravel makes interacting with databases extremely simple across a variety of supported databases using raw SQL, a [конструктора запитів](queries), and the [Eloquent ORM](eloquent). Currently, Laravel provides first-party support for five databases:
+Almost every modern web application interacts with a database. Laravel makes interacting with databases extremely simple across a variety of supported databases using raw SQL, a [конструктора запитів](queries.md), and the [Eloquent ORM](eloquent). Currently, Laravel provides first-party support for five databases:
 
 <div class="content-list" markdown="1">
 
@@ -33,7 +33,7 @@ Almost every modern web application interacts with a database. Laravel makes int
 
 Конфігурація служб бази даних Laravel міститься у конфігураційному файлі додатка `config/database.php`. У цьому файлі ви можете визначити всі підключення до бази даних, а також вказати, яке підключення має використовуватися за замовчуванням. Більшість параметрів конфігурації в цьому файлі керуються значеннями змінних середовища вашого додатка. У цьому файлі наведено приклади для більшості систем баз даних, які підтримує Laravel.
 
-За замовчуванням типова [конфігурація середовища](configuration#environment-configuration) Laravel готова до використання з [Laravel Sail](sail), яка є конфігурацією Docker для розробки додатків Laravel на вашій локальній машині. Однак ви можете змінювати конфігурацію вашої бази даних за потреби для вашої локальної бази даних.
+За замовчуванням типова [конфігурація середовища](configuration.md#environment-configuration) Laravel готова до використання з [Laravel Sail](sail), яка є конфігурацією Docker для розробки додатків Laravel на вашій локальній машині. Однак ви можете змінювати конфігурацію вашої бази даних за потреби для вашої локальної бази даних.
 
 <a name="sqlite-configuration"></a>
 #### Конфігурація SQLite
@@ -265,7 +265,7 @@ $pdo = DB::connection()->getPdo();
 <a name="listening-for-query-events"></a>
 ### Прослуховування подій запита
 
-Якщо ви бажаєте вказати замикання, яке викликається для кожного SQL-запита, що виконується вашим додатком, ви можете використовувати метод `listen` фасаду `DB`. Цей метод може бути корисним для логування запитів або налагодження. Ви можете зареєструвати замикання слухача запита в методі `boot` [постачальника послуг](providers):
+Якщо ви бажаєте вказати замикання, яке викликається для кожного SQL-запита, що виконується вашим додатком, ви можете використовувати метод `listen` фасаду `DB`. Цей метод може бути корисним для логування запитів або налагодження. Ви можете зареєструвати замикання слухача запита в методі `boot` [постачальника послуг](providers.md):
 
 ```php
 <?php
@@ -306,7 +306,7 @@ class AppServiceProvider extends ServiceProvider
 <a name="monitoring-cumulative-query-time"></a>
 ### Моніторинг загального часу запита
 
-Загальною продуктивністю сучасних веб-додатків є кількість часу, який вони витрачають на запити до баз даних. На щастя, Laravel може викликати функцію зворотного виклику за вашим вибором, якщо він витрачає надто багато часу на запит до бази даних під час одного запиту. Щоб почати, вкажіть порогове значення часу запиту (у мілісекундах) і замикання для методу `whenQueryingForLongerThan`. Ви можете викликати цей метод у методі `boot`  [постачальника послуг](providers):
+Загальною продуктивністю сучасних веб-додатків є кількість часу, який вони витрачають на запити до баз даних. На щастя, Laravel може викликати функцію зворотного виклику за вашим вибором, якщо він витрачає надто багато часу на запит до бази даних під час одного запиту. Щоб почати, вкажіть порогове значення часу запиту (у мілісекундах) і замикання для методу `whenQueryingForLongerThan`. Ви можете викликати цей метод у методі `boot`  [постачальника послуг](providers.md):
 
 ```php
 <?php
@@ -395,7 +395,7 @@ DB::rollBack();
 DB::commit();
 ```
 > **Note**  
-> Методи транзакцій фасаду `DB` контролюють транзакції як для [конструктора запитів](queries), так і для [Eloquent ORM](eloquent).
+> Методи транзакцій фасаду `DB` контролюють транзакції як для [конструктора запитів](queries.md), так і для [Eloquent ORM](eloquent.md).
 
 <a name="connecting-to-the-database-cli"></a>
 ## Підключення до бази даних за допомогою CLI

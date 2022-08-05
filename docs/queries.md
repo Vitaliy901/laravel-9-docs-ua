@@ -87,7 +87,7 @@ foreach ($users as $user) {
 }
 ```
 > **Note**  
-> Колекції Laravel надають різноманітні надзвичайно потужні методи для відображення та скорочення даних. Щоб дізнатися більше про колекції Laravel, перегляньте [документацію колекції](collections).
+> Колекції Laravel надають різноманітні надзвичайно потужні методи для відображення та скорочення даних. Щоб дізнатися більше про колекції Laravel, перегляньте [документацію колекції](collections.md).
 
 <a name="retrieving-a-single-row-column-from-a-table"></a>
 #### Отримання одного рядка/стовпця з таблиці
@@ -184,7 +184,7 @@ DB::table('users')->where('active', false)
 <a name="streaming-results-lazily"></a>
 ### Відкладена потокова передача результатів
 
-Метод `lazy` працює подібно до [методу `chunk`](#chunking-results) у тому сенсі, що він виконує запити порційно. Однак замість того, щоб передавати кожну порцію у зворотний виклик, метод `lazy()` повертає [`LazyCollection`](collections#lazy-collections), що дозволяє вам взаємодіяти з результатами як єдиним потоком:
+Метод `lazy` працює подібно до [методу `chunk`](#chunking-results) у тому сенсі, що він виконує запити порційно. Однак замість того, щоб передавати кожну порцію у зворотний виклик, метод `lazy()` повертає [`LazyCollection`](collections.md#lazy-collections), що дозволяє вам взаємодіяти з результатами як єдиним потоком:
 
 ```php
 use Illuminate\Support\Facades\DB;
@@ -527,7 +527,7 @@ $users = DB::table('users')
 select * from users where votes > 100 or (name = 'Abigail' and votes > 50)
 ```
 > **Warning**  
-> Завжди слід групувати виклики `orWhere`, щоб уникнути неочікуваної поведінки під час застосування [глобальних областей запита](eloquent#query-scopes).
+> Завжди слід групувати виклики `orWhere`, щоб уникнути неочікуваної поведінки під час застосування [глобальних областей запита](eloquent.md#query-scopes).
 
 <a name="where-not-clauses"></a>
 ### Вирази Where Not
@@ -720,7 +720,7 @@ $users = DB::table('users')
 select * from users where name = 'John' and (votes > 100 or title = 'Admin')
 ```
 > **Warning**  
-> Завжди слід групувати виклики `orWhere`, щоб уникнути неочікуваної поведінки під час застосування [глобальних областей](eloquent#query-scopes).
+> Завжди слід групувати виклики `orWhere`, щоб уникнути неочікуваної поведінки під час застосування [глобальних областей](eloquent.md#query-scopes).
 
 <a name="advanced-where-clauses"></a>
 ### Розширені вирази Where
@@ -780,9 +780,9 @@ $incomes = Income::where('amount', '<', function ($query) {
 ### Повнотекстові вирази Where
 
 > **Warning**  
-> Повний текст, де вирази наразі підтримуються MySQL і PostgreSQL.
+> Повнотекстові вирази де наразі підтримуються MySQL і PostgreSQL.
 
-Методи `whereFullText` і `orWhereFullText` можна використовувати для додавання повнотекстових виразів "WHERE" у запит для стовпців, які мають [повнотекстові індекси](migrations#available-index-types). Laravel перетворює ці методи у відповідний SQL для базової системи бази даних. Наприклад, вираз `MATCH AGAINST` буде згенеровано для додатків, які використовують MySQL:
+Методи `whereFullText` і `orWhereFullText` можна використовувати для додавання повнотекстових виразів "WHERE" у запит для стовпців, які мають [повнотекстові індекси](migrations.md#available-index-types). Laravel перетворює ці методи у відповідний SQL для базової системи бази даних. Наприклад, вираз `MATCH AGAINST` буде згенеровано для додатків, які використовують MySQL:
 
 ```php
 $users = DB::table('users')
