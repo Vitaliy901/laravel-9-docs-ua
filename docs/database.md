@@ -16,8 +16,6 @@
 Майже кожен сучасний веб-додаток взаємодіє з базою даних. Laravel надзвичайно спрощує взаємодію з базами даних за допомогою різноманітної підтримки баз даних, використовуючи чистий SQL [конструктора запитів](queries) і [Eloquent ORM](eloquent). Наразі Laravel надає першу підтримку для п’яти баз даних: 
 
 
-Almost every modern web application interacts with a database. Laravel makes interacting with databases extremely simple across a variety of supported databases using raw SQL, a [конструктора запитів](queries.md), and the [Eloquent ORM](eloquent). Currently, Laravel provides first-party support for five databases:
-
 <div class="content-list" markdown="1">
 
 - MariaDB 10.2+ ([Version Policy](https://mariadb.org/about/#maintenance-policy))
