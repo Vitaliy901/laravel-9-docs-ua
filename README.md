@@ -73,7 +73,7 @@
   - [ ] [Використання Redis](./docs/redis.md)
 - #### Eloquent ORM
   - [x] [Початок роботи](./docs/eloquent.md)
-  - [ ] [Відношення](./docs/eloquent-relationships.md)
+  - [x] [Відношення](./docs/eloquent-relationships.md)
   - [ ] [Колекції](./docs/eloquent-collections.md)
   - [ ] [Мутатори та типізатори](./docs/eloquent-mutators.md)
   - [ ] [Ресурси API](./docs/eloquent-resources.md)
