@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/laravel-9-docs-ua.iml" filepath="$PROJECT_DIR$/.idea/laravel-9-docs-ua.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../projects/project-onix-academy-laravel/.idea/project-onix-academy-laravel.iml" filepath="$PROJECT_DIR$/../../projects/project-onix-academy-laravel/.idea/project-onix-academy-laravel.iml" />
+    </modules>
+  </component>
+</project>
