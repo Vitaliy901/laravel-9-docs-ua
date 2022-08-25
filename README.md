@@ -76,7 +76,7 @@
   - [x] [Відношення](./docs/eloquent-relationships.md)
   - [ ] [Колекції](./docs/eloquent-collections.md)
   - [ ] [Мутатори та типізатори](./docs/eloquent-mutators.md)
-  - [ ] [Ресурси API](./docs/eloquent-resources.md)
+  - [x] [Ресурси API](./docs/eloquent-resources.md)
   - [ ] [Сериалізація](./docs/eloquent-serialization.md)
 - #### Тестування
   - [ ] [Початок роботи](./docs/testing.md)
