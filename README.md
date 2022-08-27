@@ -40,7 +40,7 @@
   - [ ] [Обробка помилок](./docs/errors.md)
   - [ ] [Логування](./docs/logging.md)
 - #### Поглиблення
-  - [ ] [Консоль Artisan](./docs/artisan.md)
+  - [x] [Консоль Artisan](./docs/artisan.md)
   - [ ] [Трансляція подій](./docs/broadcasting.md)
   - [ ] [Кеш додатка](./docs/cache.md)
   - [ ] [Колекції](./docs/collections.md)
