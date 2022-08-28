@@ -56,7 +56,7 @@
   - [ ] [Розробка пакетів](./docs/packages.md)
   - [ ] [Черги](./docs/queues.md)
   - [ ] [Обмеження швидкості](./docs/rate-limiting.md)
-  - [ ] [Планування задач](./docs/scheduling.md)
+  - [x] [Планування задач](./docs/scheduling.md)
 - #### Безпека
   - [x] [Автентифікація](./docs/authentication.md)
   - [ ] [Авторизація](./docs/authorization.md)
