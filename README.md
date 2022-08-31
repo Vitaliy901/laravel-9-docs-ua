@@ -54,8 +54,8 @@
   - [ ] [Поштові відправлення](./docs/mail.md)
   - [ ] [Повідомлення](./docs/notifications.md)
   - [ ] [Розробка пакетів](./docs/packages.md)
-  - [ ] [Черги](./docs/queues.md)
-  - [ ] [Обмеження швидкості](./docs/rate-limiting.md)
+  - [x] [Черги](./docs/queues.md)
+  - [ ] [Обмеження частоти](./docs/rate-limiting.md)
   - [x] [Планування задач](./docs/scheduling.md)
 - #### Безпека
   - [x] [Автентифікація](./docs/authentication.md)
