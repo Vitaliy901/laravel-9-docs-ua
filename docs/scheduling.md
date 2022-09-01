@@ -398,9 +398,9 @@ php artisan schedule:work
 
 <a name="task-output"></a>
 
-## Вивід завдань
+## Результат виконання завдання
 
-Планувальник Laravel надає декілька зручних методів для роботи з результатами, створеними запланованими завданнями. По-перше, використовуючи метод `sendOutputTo`, ви можете надіслати вивід у файл для подальшої перевірки:
+Планувальник Laravel надає декілька зручних методів для роботи з результатами, створеними запланованими завданнями. По-перше, використовуючи метод `sendOutputTo`, ви можете надіслати результат у файл для подальшої перевірки:
 
 ```php
 $schedule->command('emails:send')
@@ -416,7 +416,7 @@ $schedule->command('emails:send')
         ->appendOutputTo($filePath);
 ```
 
-Використовуючи метод `emailOutputTo`, ви можете відправити вихідні дані електронною поштою на адресу електронної пошти за вашим вибором. Перш ніж надсилати результат завдання електронною поштою, вам слід налаштувати [служби електронної пошти](mail.md) Laravel:
+Використовуючи метод `emailOutputTo`, ви можете відправити результат електронною поштою на будь-яку адресу електронної пошти за вашим вибором. Перш ніж надсилати результат завдання електронною поштою, вам слід налаштувати [служби електронної пошти](mail.md) Laravel:
 
 ```php
 $schedule->command('report:generate')
@@ -425,7 +425,7 @@ $schedule->command('report:generate')
         ->emailOutputTo('taylor@example.com');
 ```
 
-Якщо ви хочете надіслати вивід електронною поштою, лише якщо запланована команда (Artisan або системна) команда закінчується ненульовим кодом, скористайтеся методом `emailOutputOnFailure`:
+Якщо ви хочете надіслати результат електронною поштою, лише якщо запланована (Artisan або системна) команди завершуються невдало, скористайтеся методом `emailOutputOnFailure`:
 
 ```php
 $schedule->command('report:generate')
@@ -434,7 +434,7 @@ $schedule->command('report:generate')
 ```
 
 > **Warning**  
-> Методи `emailOutputTo`, `emailOutputOnFailure`, `sendOutputTo`, та `appendOutputTo` є ексклюзивними для методів `command` and `exec`.
+> Методи `emailOutputTo`, `emailOutputOnFailure`, `sendOutputTo`, та `appendOutputTo` є унікальними лише для методів `command` and `exec`.
 
 <a name="task-hooks"></a>
 
@@ -446,27 +446,27 @@ $schedule->command('report:generate')
 $schedule->command('emails:send')
         ->daily()
         ->before(function () {
-            // The task is about to execute...
+            // Завдання готове до виконання...
         })
         ->after(function () {
-            // The task has executed...
+            // Завдання виконано...
         });
 ```
 
-Методи `onSuccess` and `onFailure` дозволяють вказати код, який буде виконано, якщо заплановане завдання буде успішним або невдалим. Помилка вказує на те, що запланована команда (Artisan або системна) команда завершилася поверненням ненульового коду:
+Методи `onSuccess` and `onFailure` дозволяють вказати код, який буде виконано, якщо заплановане завдання буде успішним або невдалим. Помилка вказує на те, що запланована (Artisan або системна) команди завершилися невдало:
 
 ```php
 $schedule->command('emails:send')
         ->daily()
         ->onSuccess(function () {
-            // завдання успішно виконано...
+            // Завдання успішно виконано...
         })
         ->onFailure(function () {
-            // Невдалось виконати задачу...
+            // Невдалось виконати завдання...
         });
 ```
 
-Якщо вивід доступний у вашій команді, ви можете отримати до нього доступ у хуках `after`, `onSuccess` or `onFailure`, вказавши тип екземпляра `Illuminate\Support\Stringable` як аргумент `$output` у визначенні замикання вашого хука:
+Якщо виведення результата доступно у вашій команді, ви можете отримати до нього доступ у хуках `after`, `onSuccess` or `onFailure`, вказавши тип екземпляра `Illuminate\Support\Stringable` як аргумент `$output` у визначенні замикання вашого гачка:
 
 ```php
 use Illuminate\Support\Stringable;
@@ -474,10 +474,10 @@ use Illuminate\Support\Stringable;
 $schedule->command('emails:send')
         ->daily()
         ->onSuccess(function (Stringable $output) {
-            // завдання успішно виконано...
+            // Завдання успішно виконано...
         })
         ->onFailure(function (Stringable $output) {
-           // Невдалось виконати задачу...
+           // Невдалось виконати завдання...
         });
 ```
 
