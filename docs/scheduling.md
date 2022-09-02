@@ -13,7 +13,7 @@
   - [Режим обслуговування](#maintenance-mode)
 - [Запуск планувальника](#running-the-scheduler)
   - [Запуск планувальника локально](#running-the-scheduler-locally)
-- [Вивід завдань](#task-output)
+- [Результат виконання завдання](#task-output)
 - [Гачки завдань](#task-hooks)
 - [Події](#events)
 
