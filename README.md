@@ -46,7 +46,7 @@
   - [ ] [Колекції](./docs/collections.md)
   - [ ] [Компіляція веб-активів за допомогою Mix](./docs/mix.md)
   - [ ] [Кнтракти](./docs/contracts.md)
-  - [ ] [Події](./docs/events.md)
+  - [x] [Події](./docs/events.md)
   - [ ] [Файлове сховище](./docs/filesystem.md)
   - [ ] [Глобальні помічники](./docs/helpers.md)
   - [ ] [HTTP-клієнт](./docs/http-client.md)
