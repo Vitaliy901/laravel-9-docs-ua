@@ -51,7 +51,7 @@
   - [ ] [Глобальні помічники](./docs/helpers.md)
   - [ ] [HTTP-клієнт](./docs/http-client.md)
   - [x] [Локалізація інтерфейса](./docs/localization.md)
-  - [ ] [Поштові відправлення](./docs/mail.md)
+  - [x] [Поштові відправлення](./docs/mail.md)
   - [ ] [Повідомлення](./docs/notifications.md)
   - [ ] [Розробка пакетів](./docs/packages.md)
   - [x] [Черги](./docs/queues.md)
