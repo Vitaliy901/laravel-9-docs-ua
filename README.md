@@ -52,7 +52,7 @@
   - [ ] [HTTP-клієнт](./docs/http-client.md)
   - [x] [Локалізація інтерфейса](./docs/localization.md)
   - [x] [Поштові відправлення](./docs/mail.md)
-  - [ ] [Повідомлення](./docs/notifications.md)
+  - [x] [Повідомлення](./docs/notifications.md)
   - [ ] [Розробка пакетів](./docs/packages.md)
   - [x] [Черги](./docs/queues.md)
   - [ ] [Обмеження частоти](./docs/rate-limiting.md)
