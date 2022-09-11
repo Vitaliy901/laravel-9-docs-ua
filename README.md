@@ -88,8 +88,8 @@
 - #### Пакети
   - [x] [_Breeze_](./docs/starter-kits.md#laravel-breeze) – легка реалізація аутентифікації Laravel для ознайомлення з функціоналом. Включає в себе прості шаблони Blade, стилізовані за допомогою Tailwind CSS. Містить маршрути для публікації.
   - [x] [_Sanctum_](./docs/sanctum.md) – легка система аутентифікації для SPA (односторінкових додатків), мобільних додатків і простих API на основі токенів. Управління токенами API, автентифікація сесії. Не містить жодних шаблонів. Використовується в Laravel Jetstream.
-
-<a name="license"></a>
+  - [x] [_Passport_](./docs/passport.md) – реалізація сервера OAuth2 для вашого додатка Laravel на основі [League OAuth2](https://github.com/thephpleague/oauth2-server).
+        <a name="license"></a>
 
 ### Ліцензія
 
