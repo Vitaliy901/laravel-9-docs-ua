@@ -105,17 +105,19 @@ class User extends Authenticatable
 
 Нарешті, у конфігураційному файлі додатка `config/auth.php` ви повинні визначити захист автентифікації для `api` та встановити параметру `driver` значення `passport`. Це вказує вашому додатку використовувати `TokenGuard` Passport під час автентифікації вхідних запитів API:
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-
-        'api' => [
-            'driver' => 'passport',
-            'provider' => 'users',
-        ],
+```php
+'guards' => [
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
     ],
+
+    'api' => [
+        'driver' => 'passport',
+        'provider' => 'users',
+    ],
+],
+```
 
 <a name="client-uuids"></a>
 

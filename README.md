@@ -59,7 +59,7 @@
   - [x] [Планування завдань](./docs/scheduling.md)
 - #### Безпека
   - [x] [Автентифікація](./docs/authentication.md)
-  - [ ] [Авторизація](./docs/authorization.md)
+  - [x] [Авторизація](./docs/authorization.md)
   - [ ] [Підтвердження електронної пошти](./docs/verification.md)
   - [ ] [Шифрування](./docs/encryption.md)
   - [ ] [Хешування](./docs/hashing.md)
