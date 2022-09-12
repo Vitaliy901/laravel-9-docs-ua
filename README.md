@@ -60,7 +60,7 @@
 - #### Безпека
   - [x] [Автентифікація](./docs/authentication.md)
   - [x] [Авторизація](./docs/authorization.md)
-  - [ ] [Підтвердження електронної пошти](./docs/verification.md)
+  - [x] [Підтвердження електронної пошти](./docs/verification.md)
   - [ ] [Шифрування](./docs/encryption.md)
   - [ ] [Хешування](./docs/hashing.md)
   - [ ] [Скидання пароля](./docs/passwords.md)
