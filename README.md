@@ -63,7 +63,7 @@
   - [x] [Підтвердження електронної пошти](./docs/verification.md)
   - [ ] [Шифрування](./docs/encryption.md)
   - [ ] [Хешування](./docs/hashing.md)
-  - [ ] [Скидання пароля](./docs/passwords.md)
+  - [x] [Скидання пароля](./docs/passwords.md)
 - #### База данных
   - [x] [Початок роботи](./docs/database.md)
   - [x] [Конструктор запитів](./docs/queries.md)
