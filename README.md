@@ -42,7 +42,7 @@
 - #### Поглиблення
   - [x] [Консоль Artisan](./docs/artisan.md)
   - [ ] [Трансляція подій](./docs/broadcasting.md)
-  - [ ] [Кеш додатка](./docs/cache.md)
+  - [x] [Кеш додатка](./docs/cache.md)
   - [ ] [Колекції](./docs/collections.md)
   - [ ] [Компіляція веб-активів за допомогою Mix](./docs/mix.md)
   - [ ] [Кнтракти](./docs/contracts.md)
@@ -68,7 +68,7 @@
   - [x] [Початок роботи](./docs/database.md)
   - [x] [Конструктор запитів](./docs/queries.md)
   - [ ] [Пагінація](./docs/pagination.md)
-  - [ ] [Миграції](./docs/migrations.md)
+  - [ ] [Міграції](./docs/migrations.md)
   - [ ] [Наповнення фіктивними даними](./docs/seeding.md)
   - [ ] [Використання Redis](./docs/redis.md)
 - #### Eloquent ORM

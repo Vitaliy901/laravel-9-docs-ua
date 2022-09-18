@@ -3,7 +3,7 @@
 - [Вступ](#introduction)
 - [Визначення розкладів](#defining-schedules)
   - [Планування команд Artisan](#scheduling-artisan-commands)
-  - [Планування завдань у черзі](#scheduling-queued-jobs)
+  - [Планування завдань в черзі](#scheduling-queued-jobs)
   - [Планування команд операційної системи](#scheduling-shell-commands)
   - [Методи періодичності розкладу](#schedule-frequency-options)
   - [Часові пояси](#timezones)
@@ -87,7 +87,7 @@ $schedule->command(SendEmailsCommand::class, ['Taylor', '--force'])->daily();
 
 <a name="scheduling-queued-jobs"></a>
 
-### Планування завдань у черзі
+### Планування завдань в черзі
 
 Метод `job` можна використовувати для планування [завдання в черзі](queues.md). Цей метод забезпечує зручний спосіб планування таких завдань без використання метода `call` із замиканням:
 
