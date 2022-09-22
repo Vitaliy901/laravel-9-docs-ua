@@ -22,7 +22,7 @@
   - [ ] [Розгортання](./docs/deployment.md)
 - #### Архітектурні концепції
   - [ ] [Життевий цикл запита](./docs/lifecycle.md)
-  - [ ] [Контейнер служб](./docs/container.md)
+  - [x] [Контейнер служб](./docs/container.md)
   - [ ] [Постачальник служб](./docs/providers.md)
   - [ ] [Фасади](./docs/facades.md)
 - #### Основи

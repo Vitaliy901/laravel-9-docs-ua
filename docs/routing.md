@@ -800,9 +800,9 @@ public function resolveChildRouteBinding($childType, $value, $field)
 
 ### Визначення обмежувачів частоти запитів
 
-Laravel містить потужні та керовані служби обмеження частоти запитів, які можна використовувати для обмеження обсягу трафіку для конкретного маршруту або групи маршрутів. Для початку ви повинні визначити конфігурації обмежувача, які відповідають потребам вашого дадатку. Як правило, це має виконуватися в методі `configureRateLimiting` постачальника `App\Providers\RouteServiceProvider` вашого додатку.
+Laravel містить потужні та керовані служби обмеження частоти запитів, які можна використовувати для обмеження обсягу трафіку для конкретного маршруту або групи маршрутів. Для початку ви повинні визначити конфігурації обмежувача, які відповідають потребам вашого дадатка. Як правило, це має виконуватися в методі `configureRateLimiting` постачальника `App\Providers\RouteServiceProvider` вашого додатка.
 
-Обмежувачі визначаються за допомогою методу `for` фасаду `RateLimiter`. Метод `for` приймає ім'я обмежувача та замикання, яке повертає конфігурацію обмежень, які застосовуються до призначених маршрутів через посередник `throttle:yourRateLimit`. Конфігурація обмежень - це екземпляри класу `Illuminate\Cache\RateLimiting\Limit`. Цей клас містить корисні методи "побудови", щоб ви могли швидко визначити свій "ліміт". Ім'я обмежувача може бути будь-яким рядком за вашим бажанням:
+Обмежувачі визначаються за допомогою метода `for` фасада `RateLimiter`. Метод `for` приймає ім'я обмежувача та замикання, яке повертає конфігурацію обмежень, які застосовуються до призначених маршрутів через посередник `throttle:yourRateLimit`. Конфігурація обмежень - це екземпляри класа `Illuminate\Cache\RateLimiting\Limit`. Цей клас містить корисні методи "побудови", щоб ви могли швидко визначити свій "ліміт". Ім'я обмежувача може бути будь-яким рядком за вашим бажанням:
 
 ```php
 use Illuminate\Cache\RateLimiting\Limit;
@@ -837,8 +837,8 @@ RateLimiter::for('global', function (Request $request) {
 ```php
 RateLimiter::for('uploads', function (Request $request) {
 	return $request->user()->vipCustomer()
-				? Limit::none()
-				: Limit::perMinute(100);
+		? Limit::none()
+		: Limit::perMinute(100);
 });
 ```
 
@@ -851,8 +851,8 @@ RateLimiter::for('uploads', function (Request $request) {
 ```php
 RateLimiter::for('uploads', function (Request $request) {
 	return $request->user()->vipCustomer()
-				? Limit::none()
-				: Limit::perMinute(100)->by($request->ip());
+		? Limit::none()
+		: Limit::perMinute(100)->by($request->ip());
 });
 ```
 
@@ -861,8 +861,8 @@ RateLimiter::for('uploads', function (Request $request) {
 ```php
 RateLimiter::for('uploads', function (Request $request) {
 	return $request->user()
-				? Limit::perMinute(100)->by($request->user()->id)
-				: Limit::perMinute(10)->by($request->ip());
+		? Limit::perMinute(100)->by($request->user()->id)
+		: Limit::perMinute(10)->by($request->ip());
 });
 ```
 
@@ -903,7 +903,7 @@ Route::middleware(['throttle:uploads'])->group(function () {
 
 #### Використання Redis для посередника `throttle`
 
-Як правило, посередник `throttle` зіставлений класу `Illuminate\Routing\Middleware\ThrottleRequests`. Це зіставлення визначено в (`App\Http\Kernel`) вашого додатку. Якщо ви використовуєте Redis як драйвер кеша вашого додатку, то ви можете змінити це зіставлення, щоб використовувати клас `Illuminate\Routing\Middleware\ThrottleRequestsWithRedis`. Цей клас ефективніший при керуванні обмеженнями запитів за допомогою Redis:
+Як правило, посередник `throttle` підставлений до класу `Illuminate\Routing\Middleware\ThrottleRequests`. Це підставлення визначено в (`App\Http\Kernel`) вашого додатка. Якщо ви використовуєте Redis як драйвер кеша вашого додатка, то ви можете змінити це порівняння, щоб використовувати клас `Illuminate\Routing\Middleware\ThrottleRequestsWithRedis`. Цей клас ефективніший при керуванні обмеженнями запитів за допомогою Redis:
 
 ```php
     'throttle' => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,

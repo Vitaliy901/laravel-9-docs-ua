@@ -711,9 +711,9 @@ return $this->belongsToMany(Role::class)->withTimestamps();
 Наприклад, якщо ваш додаток містить користувачів, які можуть підписатися на подкасти, ймовірно, між користувачами та подкастами існує зв’язок «багато-до-багатьох». Якщо це так, ви можете перейменувати атрибут проміжної таблиці на `subscription` замість `pivot`. Це можна зробити за допомогою метода `as` під час визначення зв’язку:
 
 ```php
-    return $this->belongsToMany(Podcast::class)
-                    ->as('subscription')
-                    ->withTimestamps();
+return $this->belongsToMany(Podcast::class)
+		->as('subscription')
+		->withTimestamps();
 ```
 
 Після визначення власної назви атрибуту `pivot` проміжної таблиці, ви можете отримати доступ до даних проміжної таблиці за допомогою цього імені:
@@ -734,29 +734,29 @@ foreach ($users->flatMap->podcasts as $podcast) {
 
 ```php
 return $this->belongsToMany(Role::class)
-				->wherePivot('approved', 1);
+		->wherePivot('approved', 1);
 
 return $this->belongsToMany(Role::class)
-				->wherePivotIn('priority', [1, 2]);
+		->wherePivotIn('priority', [1, 2]);
 
 return $this->belongsToMany(Role::class)
-				->wherePivotNotIn('priority', [1, 2]);
+		->wherePivotNotIn('priority', [1, 2]);
 
 return $this->belongsToMany(Podcast::class)
-				->as('subscriptions')
-				->wherePivotBetween('created_at', ['2020-01-01 00:00:00', '2020-12-31 00:00:00']);
+		->as('subscriptions')
+		->wherePivotBetween('created_at', ['2020-01-01 00:00:00', '2020-12-31 00:00:00']);
 
 return $this->belongsToMany(Podcast::class)
-				->as('subscriptions')
-				->wherePivotNotBetween('created_at', ['2020-01-01 00:00:00', '2020-12-31 00:00:00']);
+		->as('subscriptions')
+		->wherePivotNotBetween('created_at', ['2020-01-01 00:00:00', '2020-12-31 00:00:00']);
 
 return $this->belongsToMany(Podcast::class)
-				->as('subscriptions')
-				->wherePivotNull('expired_at');
+		->as('subscriptions')
+		->wherePivotNull('expired_at');
 
 return $this->belongsToMany(Podcast::class)
-				->as('subscriptions')
-				->wherePivotNotNull('expired_at');
+		->as('subscriptions')
+		->wherePivotNotNull('expired_at');
 ```
 
 <a name="defining-custom-intermediate-table-models"></a>
@@ -1227,7 +1227,7 @@ Relation::enforceMorphMap([
 ]);
 ```
 
-Ви можете викликати метод `enforceMorphMap` у методі `boot` вашого класу `App\Providers\AppServiceProvider` або створити окремого постачальника послуг, якщо хочете.
+Ви можете викликати метод `enforceMorphMap` у методі `boot` вашого класу `App\Providers\AppServiceProvider` або створити окремого постачальника служб, якщо хочете.
 
 Ви можете визначити псевдонім поліморфного типу для конкретної моделі під час виконання, за допомогою метода моделі `getMorphClass`. І навпаки, ви можете визначити повне ім'я класу, пов'язане із псевдонімом поліморфного типу, використовуючи метод`Relation::getMorphedModel`:
 
@@ -1248,7 +1248,7 @@ $class = Relation::getMorphedModel($alias);
 
 Ви можете використовувати метод `resolveRelationUsing` для визначення відношень між моделями Eloquent під час виконання. Хоча це зазвичай не рекомендується для звичайної розробки додатків, іноді це може бути корисним під час розробки пакетів Laravel.
 
-Метод `resolveRelationUsing` приймає бажане ім’я зв’язку як перший аргумент. Другим аргументом, переданим у метод, має бути замикання, яке приймає екземпляр моделі та повертає дійсне визначення зв’язку Eloquent. Як правило, ви повинні налаштувати динамічні відношенння в методі `boot` [постачальника послуг](providers.md):
+Метод `resolveRelationUsing` приймає бажане ім’я зв’язку як перший аргумент. Другим аргументом, переданим у метод, має бути замикання, яке приймає екземпляр моделі та повертає дійсне визначення зв’язку Eloquent. Як правило, ви повинні налаштувати динамічні відношенння в методі `boot` [постачальника служб](providers.md):
 
 ```php
 use App\Models\Order;
@@ -1896,7 +1896,7 @@ $users = User::with(['posts' => function ($query) {
 ```
 
 > **Warning**  
-> Методи `limit` і `take` постачальника запитів не можна використовувати при обмеженні нетерплячого завантаження.
+> Методи `limit` і `take` конструктора запитів не можна використовувати при обмеженні нетерплячого завантаження.
 
 <a name="constraining-eager-loading-of-morph-to-relationships"></a>
 

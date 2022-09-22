@@ -216,7 +216,7 @@ use App\Http\Controllers\HomeController;
 $url = action([HomeController::class, 'index']);
 ```
 
-Якщометод контролерра приймає параметри маршрута, ви можете передати асоціативний масив параметрів маршрута, другим аргументом:
+Якщо метод контроллера приймає параметри маршрута, ви можете передати асоціативний масив параметрів маршрута, другим аргументом:
 
 ```php
 $url = action([UserController::class, 'profile'], ['id' => 1]);
@@ -234,7 +234,7 @@ Route::get('/{locale}/posts', function () {
 })->name('post.index');
 ```
 
-Це може втомлювати завжди передавати `locale` кожного разу, коли ви викликаєте пімічника `route`. Отже, ви можете використати метод `URL::defaults`, щоб визначити значення за замовчуванням для цього параметра, який буде завжди застосовуватись протягом поточного запита. Ви можите викликати цей метод з [посередника маршрутів](middleware.md#assigning-middleware-to-routes), щоб мати доступ для поточного запита:
+Це може втомлювати, завжди передавати `locale` кожного разу, коли ви викликаєте пімічника `route`. Отже, ви можете використати метод `URL::defaults`, щоб визначити значення за замовчуванням для цього параметра, який буде завжди застосовуватись протягом поточного запита. Ви можите викликати цей метод з [посередника маршрутів](middleware.md#assigning-middleware-to-routes), щоб мати доступ для поточного запита:
 
 ```php
 <?php
@@ -282,8 +282,8 @@ class SetDefaultLocaleForUrls
  */
 protected $middlewarePriority = [
     // ...
-        \App\Http\Middleware\SetDefaultLocaleForUrls::class,
-        \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        // ...
+    \App\Http\Middleware\SetDefaultLocaleForUrls::class,
+    \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    // ...
 ];
 ```
