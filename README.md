@@ -31,7 +31,7 @@
   - [ ] [Попередження атак CSRF](./docs/csrf.md)
   - [x] [Контроллери](./docs/controllers.md)
   - [x] [HTTP-запити](./docs/requests.md)
-  - [ ] [HTTP-відповіді](./docs/responses.md)
+  - [x] [HTTP-відповіді](./docs/responses.md)
   - [ ] [HTML-шаблони](./docs/views.md)
   - [ ] [Шаблонізатор Blade](./docs/blade.md)
   - [x] [Генерація URL-адрес](./docs/urls.md)
@@ -41,7 +41,7 @@
   - [ ] [Логування](./docs/logging.md)
 - #### Поглиблення
   - [x] [Консоль Artisan](./docs/artisan.md)
-  - [ ] [Трансляція подій](./docs/broadcasting.md)
+  - [ ] [Транслювання](./docs/broadcasting.md)
   - [x] [Кеш додатка](./docs/cache.md)
   - [ ] [Колекції](./docs/collections.md)
   - [ ] [Компіляція веб-активів за допомогою Mix](./docs/mix.md)

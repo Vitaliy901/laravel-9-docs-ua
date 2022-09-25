@@ -1150,7 +1150,7 @@ class User extends Authenticatable
 composer require laravel/vonage-notification-channel guzzlehttp/guzzle
 ```
 
-Пакет включає [конфігураційний файл](https://github.com/laravel/vonage-notification-channel/blob/3.x/config/vonage.php). Однак вам не потрібно експортувати цей файл конфігурації у власний додаток. Ви можете просто використовувати змінні середовища `VONAGE_KEY` і `VONAGE_SECRET`, щоб визначити свої відкритий і секретний ключі Vonage.
+Пакет включає [конфігураційний файл](https://github.com/laravel/vonage-notification-channel/blob/3.x/config/vonage.php). Однак вам не потрібно експортувати цей файл конфігурації у власний додаток. Ви можете просто використовувати змінні середовища `VONAGE_KEY` і `VONAGE_SECRET`, щоб визначити свій відкритий і секретний ключі Vonage.
 
 Після визначення ваших ключів ви можете встановити змінну середовища `VONAGE_SMS_FROM`, яка визначає номер телефона, з якого за замовчуванням мають надсилатися ваші SMS-повідомлення. Ви можете створити цей номер телефона на панелі керування Vonage:
 
