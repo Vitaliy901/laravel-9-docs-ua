@@ -41,7 +41,7 @@
   - [ ] [Логування](./docs/logging.md)
 - #### Поглиблення
   - [x] [Консоль Artisan](./docs/artisan.md)
-  - [ ] [Транслювання](./docs/broadcasting.md)
+  - [x] [Транслювання](./docs/broadcasting.md)
   - [x] [Кеш додатка](./docs/cache.md)
   - [ ] [Колекції](./docs/collections.md)
   - [ ] [Компіляція веб-активів за допомогою Mix](./docs/mix.md)
