@@ -49,7 +49,7 @@
   - [x] [Події](./docs/events.md)
   - [ ] [Файлове сховище](./docs/filesystem.md)
   - [ ] [Глобальні помічники](./docs/helpers.md)
-  - [ ] [HTTP-клієнт](./docs/http-client.md)
+  - [x] [HTTP-клієнт](./docs/http-client.md)
   - [x] [Локалізація інтерфейса](./docs/localization.md)
   - [x] [Поштові відправлення](./docs/mail.md)
   - [x] [Повідомлення](./docs/notifications.md)
