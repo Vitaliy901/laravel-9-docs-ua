@@ -21,7 +21,7 @@
   - [ ] [Стартові комплекти](./docs/starter-kits.md)
   - [ ] [Розгортання](./docs/deployment.md)
 - #### Архітектурні концепції
-  - [ ] [Життевий цикл запитів](./docs/lifecycle.md)
+  - [x] [Життевий цикл запитів](./docs/lifecycle.md)
   - [x] [Контейнер служб](./docs/container.md)
   - [x] [Постачальник служб](./docs/providers.md)
   - [ ] [Фасади](./docs/facades.md)
