@@ -51,7 +51,7 @@
   - [Відшкодування платежів](#refunding-charges)
 - [Перевірка](#checkout)
   - [Перевірка товару](#product-checkouts)
-  - [Перевірка одноразовх зборів](#single-charge-checkouts)
+  - [Перевірка одноразовх платежів](#single-charge-checkouts)
   - [Перевірка підписників](#subscription-checkouts)
   - [Збір податкових IDs](#collecting-tax-ids)
   - [Гостьові перевірки](#guest-checkouts)
@@ -71,7 +71,7 @@
 
 ## Вступ
 
-[Laravel Cashier Stripe](https://github.com/laravel/cashier-stripe) надає виразний, гнучкий інтерфейс для абонентських оплачуваних послуг [Stripe's](https://stripe.com/). Він опрацьовує майже весь стандартний платіжний код передплати, який вам страшно писати. На додаток до базового керування підписок, Cashier може керувати купонами, обмінювати підписки, «вартість» підписок, пільгові періоди скасування та навіть створювати PDF-файли рахунків.
+[Laravel Cashier Stripe](https://github.com/laravel/cashier-stripe) надає виразний, гнучкий інтерфейс для абонентських оплачуваних послуг [Stripe](https://stripe.com/). Він опрацьовує майже весь стандартний платіжний код передплати, який вам страшно писати. На додаток до базового керування підписок, Cashier може керувати купонами, обмінювати підписки, «вартість» підписок, пільгові періоди скасування та навіть створювати PDF-файли рахунків.
 
 <a name="upgrading-cashier"></a>
 
@@ -2115,6 +2115,100 @@ class ApiInvoiceRenderer implements InvoiceRenderer
 <a name="checkout"></a>
 
 ## Перевірка
+
+Cashier Stripe також підтримує [Stripe Checkout](https://stripe.com/payments/checkout). Stripe Checkout позбавляє від проблем реалізації власних сторінок для прийому платежів, надаючи попередньо створену сторінку платежів.
+
+Наступна документація містить інформацію про те, як почати використовувати Stripe Checkout із Cashier. Щоб дізнатися більше про Stripe Checkout, вам слід також переглянути власну документацію Stripe щодо Checkout.
+
+<a name="product-checkouts"></a>
+
+### Перевірка товару
+
+Ви можете здійснити перевірку існуючого продукту, який було створено на вашій інформаційній панелі Stripe, використовуючи метод `checkout` на платній моделі. Метод `checkout` ініціює новий сеанс перевірки Stripe. За замовчуванням вам потрібно передати Stripe Price ID:
+
+```php
+use Illuminate\Http\Request;
+
+Route::get('/product-checkout', function (Request $request) {
+    return $request->user()->checkout('price_tshirt');
+});
+```
+
+При необхідності ви також можете вказати кількість товару:
+
+```php
+use Illuminate\Http\Request;
+
+Route::get('/product-checkout', function (Request $request) {
+    return $request->user()->checkout(['price_tshirt' => 15]);
+});
+```
+
+Коли клієнт відвідує цей маршрут, він буде перенаправлений на сторінку оформлення замовлення Stripe. За замовчуванням, коли користувач успішно завершує або скасовує покупку, він буде перенаправлений до вашого маршруту `home`, але ви можете вказати власні URL-адреси зворотного виклику за допомогою параметрів `success_url` і `cancel_url`:
+
+```php
+use Illuminate\Http\Request;
+
+Route::get('/product-checkout', function (Request $request) {
+    return $request->user()->checkout(['price_tshirt' => 1], [
+        'success_url' => route('your-success-route'),
+        'cancel_url' => route('your-cancel-route'),
+    ]);
+});
+```
+
+Визначаючи параметр перевірки для `success_url`, ви можете вказати Stripe додати перевірку ID сесії як параметр рядка запиту під час виклику вашої URL-адреси. Для цього додайте літеральний рядок `{CHECKOUT_SESSION_ID}` до свого рядка запита `success_url`. Stripe замінить цей заповнювач на фактичну перевірку ID сесії:
+
+```php
+use Illuminate\Http\Request;
+use Stripe\Checkout\Session;
+use Stripe\Customer;
+
+Route::get('/product-checkout', function (Request $request) {
+    return $request->user()->checkout(['price_tshirt' => 1], [
+        'success_url' => route('checkout-success').'?session_id={CHECKOUT_SESSION_ID}',
+        'cancel_url' => route('checkout-cancel'),
+    ]);
+});
+
+Route::get('/checkout-success', function (Request $request) {
+    $checkoutSession = $request->user()->stripe()->checkout->sessions->retrieve($request->get('session_id'));
+
+    return view('checkout.success', ['checkoutSession' => $checkoutSession]);
+})->name('checkout-success');
+```
+
+<a name="promotion-codes"></a>
+
+#### Промо-коди
+
+За замовчуванням Stripe Checkout не дозволяє [користувачам активувати промо-коди](https://stripe.com/docs/billing/subscriptions/coupons). На щастя, є простий спосіб увімкнути їх для вашої сторінки Checkout. Для цього ви можете викликати метод `allowPromotionCodes`:
+
+```php
+use Illuminate\Http\Request;
+
+Route::get('/product-checkout', function (Request $request) {
+    return $request->user()
+        ->allowPromotionCodes()
+        ->checkout('price_tshirt');
+});
+```
+
+<a name="single-charge-checkouts"></a>
+
+#### Перевірка одноразовх платежів
+
+Ви також можете здійснити просте стягнення оплати за спеціальний продукт, який не було створено на інформаційній панелі Stripe. Для цього ви можете використати метод `checkoutCharge` на платіжній моделі та передати йому суму, яка підлягає оплаті, назву продукту та необов’язкову кількість. Коли клієнт відвідує цей маршрут, він буде перенаправлений на сторінку оформлення замовлення Stripe:
+
+```php
+use Illuminate\Http\Request;
+
+Route::get('/charge-checkout', function (Request $request) {
+    return $request->user()->checkoutCharge(1200, 'T-Shirt', 5);
+});
+```
+
+Під час використання методу `checkoutCharge` Stripe завжди створюватиме новий продукт і ціну на панелі інструментів Stripe. Тому ми рекомендуємо створювати продукти на інформаційній панелі Stripe і замість цього використовувати метод `checkout` замовлення.
 
 <a name="testing"></a>
 

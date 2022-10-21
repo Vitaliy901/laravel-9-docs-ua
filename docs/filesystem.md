@@ -27,7 +27,7 @@
 
 ## Вступ
 
-Laravel забезпечує потужну абстракцію файлової системи завдяки чудовому PHP-пакунку [Flysystem](https://github.com/thephpleague/flysystem) від Франка де Йонга (Frank de Jonge). Інтеграція Laravel Flysystem надає прості драйвери для роботи з локальними файловими системами, SFTP і Amazon S3. Навіть краще, надзвичайно просто перемикатися між цими параметрами зберігання між вашою локальною машиною розробки та робочим сервером, оскільки API залишається незмінним для кожної системи.
+Завдяки чудовому PHP-пакунку [Flysystem](https://github.com/thephpleague/flysystem) від Франка де Йонга (Frank de Jonge),Laravel забезпечує потужну абстракцію файлової системи. Інтеграція Laravel Flysystem надає прості драйвери для роботи з локальними файловими системами, SFTP і Amazon S3. Навіть краще, надзвичайно просто перемикатися між цими параметрами зберігання між вашою локальною машиною розробки та робочим сервером, оскільки API залишається незмінним для кожної системи.
 
 <a name="configuration"></a>
 
@@ -36,55 +36,61 @@ Laravel забезпечує потужну абстракцію файлово�
 Конфігурація файлової системи Laravel розташована в `config/filesystems.php`. В цьому файлі ви можете налаштувати всі "диски" вашої файлової системи. Кожен диск представляє певний драйвер сховища та місце зберігання.
 Приклади конфігурацій для кожного підтримуваного драйвера включено в конфігураційний файл, тож ви можете змінити конфігурацію, відповідно до ваших вимог зберігання та облікових даних.
 
-The `local` driver interacts with files stored locally on the server running the Laravel application while the `s3` driver is used to write to Amazon's S3 cloud storage service.
+Драйвер `local` взаємодіє з файлами, які зберігаються локально на сервері, на якому запущено додаток Laravel, тоді як драйвер `s3` використовується для запису в службу хмарного зберігання даних Amazon S3.
 
 > **Note**
-> You may configure as many disks as you like and may even have multiple disks that use the same driver.
+> Ви можете налаштувати скільки завгодно дисків і навіть мати декілька дисків, які використовують той самий драйвер.
 
 <a name="the-local-driver"></a>
 
-### The Local Driver
+### Локальний драйвер
 
-When using the `local` driver, all file operations are relative to the `root` directory defined in your `filesystems` configuration file. By default, this value is set to the `storage/app` directory. Therefore, the following method would write to `storage/app/example.txt`:
+Під час використання `local` драйвера всі файлові операції відносяться до `root` каталогу, визначеного в конфігураційному файлі `filesystems.php` вашого додатка. За замовчуванням це значення встановлено на каталог `storage/app`. Таким чином, наступний метод буде записувати в `storage/app/example.txt`:
 
-    use Illuminate\Support\Facades\Storage;
+```php
+use Illuminate\Support\Facades\Storage;
 
-    Storage::disk('local')->put('example.txt', 'Contents');
+Storage::disk('local')->put('example.txt', 'Contents');
+```
 
 <a name="the-public-disk"></a>
 
-### The Public Disk
+### Публічний диск
 
-The `public` disk included in your application's `filesystems` configuration file is intended for files that are going to be publicly accessible. By default, the `public` disk uses the `local` driver and stores its files in `storage/app/public`.
+Диск `public`, включений в конфігураційному файлі `filesystems.php` вашого додатка, призначений для файлів, які будуть загальнодоступними. За замовчуванням диск `public` використовує `local` драйвер і зберігає свої файли в `storage/app/public`.
 
-To make these files accessible from the web, you should create a symbolic link from `public/storage` to `storage/app/public`. Utilizing this folder convention will keep your publicly accessible files in one directory that can be easily shared across deployments when using zero down-time deployment systems like [Envoyer](https://envoyer.io).
+Щоб зробити ці файли доступними з Інтернету, вам слід створити символічне посилання від `public/storage` до `storage/app/public`. Застосування цієї угоди про папки зберігатиме ваші загальнодоступні файли в одному каталозі, якими можна легко ділитися між розгортаннями під час використання систем розгортання без простоїв, таких як [Envoyer](https://envoyer.io/).
 
-To create the symbolic link, you may use the `storage:link` Artisan command:
+Щоб створити символічне посилання, ви можете використати команду Artisan `storage:link`:
 
 ```shell
 php artisan storage:link
 ```
 
-Once a file has been stored and the symbolic link has been created, you can create a URL to the files using the `asset` helper:
+Після того, як файл збережено та створено символічне посилання, ви можете сшенерувати URL-адресу для файлів за допомогою помічника `asset`:
 
-    echo asset('storage/file.txt');
+```php
+echo asset('storage/file.txt');
+```
 
-You may configure additional symbolic links in your `filesystems` configuration file. Each of the configured links will be created when you run the `storage:link` command:
+Ви можете налаштувати додаткові символічні посилання в конфігураційному файлі `filesystems.php` вашого додатка. Кожне з налаштованих посилань буде створено, коли ви запустите команду `storage:link`:
 
-    'links' => [
-        public_path('storage') => storage_path('app/public'),
-        public_path('images') => storage_path('app/images'),
-    ],
+```php
+'links' => [
+    public_path('storage') => storage_path('app/public'),
+    public_path('images') => storage_path('app/images'),
+],
+```
 
 <a name="driver-prerequisites"></a>
 
-### Driver Prerequisites
+### Попередня підготовка дравера
 
 <a name="s3-driver-configuration"></a>
 
-#### S3 Driver Configuration
+#### Налаштування драйвера S3
 
-Before using the S3 driver, you will need to install the Flysystem S3 package via the Composer package manager:
+Перед використанням драйвера S3 вам потрібно буде встановити пакет Flysystem S3 за допомогою менеджера пакетів Composer:
 
 ```shell
 composer require league/flysystem-aws-s3-v3 "^3.0"
