@@ -5,7 +5,7 @@
   - [Локальний драйвер](#the-local-driver)
   - [Публічний диск](#the-public-disk)
   - [Попередня підготовка дравера](#driver-prerequisites)
-    - [Обмеженний шлях і Файлові системи Read-Only](#scoped-and-read-only-filesystems)
+    - [Обмеженний шлях і Файлові системи лише для читання](#scoped-and-read-only-filesystems)
     - [Файлові системи сумісні з Amazon S3](#amazon-s3-compatible-filesystems)
 - [Доступ до дискових екземплярів](#obtaining-disk-instances)
   - [Диски на вимогу](#on-demand-disks)
@@ -90,79 +90,83 @@ echo asset('storage/file.txt');
 
 #### Налаштування драйвера S3
 
-Перед використанням драйвера S3 вам потрібно буде встановити пакет Flysystem S3 за допомогою менеджера пакетів Composer:
+Перед використанням драйвера S3 вам потрібно буде встановити пакет Flysystem S3 за допомогою менеджера пакунків Composer:
 
 ```shell
 composer require league/flysystem-aws-s3-v3 "^3.0"
 ```
 
-The S3 driver configuration information is located in your `config/filesystems.php` configuration file. This file contains an example configuration array for an S3 driver. You are free to modify this array with your own S3 configuration and credentials. For convenience, these environment variables match the naming convention used by the AWS CLI.
+Інформація про налаштування драйвера S3 міститься в конфігураційному файлі `config/filesystems.php`. Цей файл містить приклад масива конфігурації для драйвера S3. Ви можете змінювати цей масив за допомогою власної конфігурації S3 та облікових даних. Для зручності ці змінні середовища відповідають правилам іменування, які використовуються в AWS CLI.
 
 <a name="ftp-driver-configuration"></a>
 
-#### FTP Driver Configuration
+#### Налаштування драйверів FTP
 
-Before using the FTP driver, you will need to install the Flysystem FTP package via the Composer package manager:
+Перед використанням FTP-драйвера вам потрібно буде встановити пакет Flysystem FTP за допомогою менеджера пакунків Composer:
 
 ```shell
 composer require league/flysystem-ftp "^3.0"
 ```
 
-Laravel's Flysystem integrations work great with FTP; however, a sample configuration is not included with the framework's default `filesystems.php` configuration file. If you need to configure an FTP filesystem, you may use the configuration example below:
+Інформація про налаштування драйвера S3 міститься в конфігураційному файлі `config/filesystems.php`. Цей файл містить приклад масиву конфігурації для драйвера S3. Ви можете змінювати цей масив за допомогою власної конфігурації S3 та облікових даних. Для зручності ці змінні середовища відповідають правилам іменування, які використовуються в AWS CLI.
 
-    'ftp' => [
-        'driver' => 'ftp',
-        'host' => env('FTP_HOST'),
-        'username' => env('FTP_USERNAME'),
-        'password' => env('FTP_PASSWORD'),
+```php
+'ftp' => [
+    'driver' => 'ftp',
+    'host' => env('FTP_HOST'),
+    'username' => env('FTP_USERNAME'),
+    'password' => env('FTP_PASSWORD'),
 
-        // Optional FTP Settings...
-        // 'port' => env('FTP_PORT', 21),
-        // 'root' => env('FTP_ROOT'),
-        // 'passive' => true,
-        // 'ssl' => true,
-        // 'timeout' => 30,
-    ],
+    // Додаткові налаштування FTP...
+    // 'port' => env('FTP_PORT', 21),
+    // 'root' => env('FTP_ROOT'),
+    // 'passive' => true,
+    // 'ssl' => true,
+    // 'timeout' => 30,
+],
+```
 
 <a name="sftp-driver-configuration"></a>
 
-#### SFTP Driver Configuration
+#### Налаштування драйвера SFTP
 
-Before using the SFTP driver, you will need to install the Flysystem SFTP package via the Composer package manager:
+Перед використанням драйвера SFTP вам потрібно буде встановити пакет SFTP Flysystem через менеджер пакетів Composer:
 
 ```shell
 composer require league/flysystem-sftp-v3 "^3.0"
 ```
 
-Laravel's Flysystem integrations work great with SFTP; however, a sample configuration is not included with the framework's default `filesystems.php` configuration file. If you need to configure an SFTP filesystem, you may use the configuration example below:
+Інтеграція Flysystem від Laravel чудово працює з SFTP; однак зразок конфігурації не надається у конфігураційному файлі фреймворка за замовчуванням `filesystems.php`. Якщо вам потрібно налаштувати файлову систему SFTP, ви можете скористатися наведеним нижче прикладом конфігурації:
 
-    'sftp' => [
-        'driver' => 'sftp',
-        'host' => env('SFTP_HOST'),
+```php
+'sftp' => [
+    'driver' => 'sftp',
+    'host' => env('SFTP_HOST'),
 
-        // Settings for basic authentication...
-        'username' => env('SFTP_USERNAME'),
-        'password' => env('SFTP_PASSWORD'),
+    // Налаштування базової автентифікації...
+    'username' => env('SFTP_USERNAME'),
+    'password' => env('SFTP_PASSWORD'),
 
-        // Settings for SSH key based authentication with encryption password...
-        'privateKey' => env('SFTP_PRIVATE_KEY'),
-        'password' => env('SFTP_PASSWORD'),
+    // Налаштування автентифікації на основі ключа SSH із паролем шифрування...
+    'privateKey' => env('SFTP_PRIVATE_KEY'),
+    'password' => env('SFTP_PASSWORD'),
 
-        // Optional SFTP Settings...
-        // 'hostFingerprint' => env('SFTP_HOST_FINGERPRINT'),
-        // 'maxTries' => 4,
-        // 'passphrase' => env('SFTP_PASSPHRASE'),
-        // 'port' => env('SFTP_PORT', 22),
-        // 'root' => env('SFTP_ROOT', ''),
-        // 'timeout' => 30,
-        // 'useAgent' => true,
-    ],
+    // Додаткові налаштування SFTP...
+    // 'hostFingerprint' => env('SFTP_HOST_FINGERPRINT'),
+    // 'maxTries' => 4,
+    // 'passphrase' => env('SFTP_PASSPHRASE'),
+    // 'port' => env('SFTP_PORT', 22),
+    // 'root' => env('SFTP_ROOT', ''),
+    // 'timeout' => 30,
+    // 'useAgent' => true,
+],
+```
 
 <a name="scoped-and-read-only-filesystems"></a>
 
-### Scoped & Read-Only Filesystems
+### Обмеженний шлях і Файлові системи лише для читання
 
-You may create a path scoped instance of any existing filesystem disk by defining a disk that utilizes the `scoped` driver. Scoped disks allow you to define a filesystem where all paths are automatically prefixed with a given path prefix. For example, you may create a disk which scopes your existing `s3` disk to a specific path prefix, and then every file operation using your scoped disk will utilize the specified prefix:
+Ви можете створити екземпляр будь-якого існуючого диска файлової системи з обмеженим шляхом, визначивши диск, який використовує драйвер `scoped`. Диски з обмеженою областю дозволяють визначити файлову систему, де всі шляхи автоматично матимуть префікс заданого шляху. Наприклад, ви можете створити диск, який обмежуватиме ваш існуючий диск `s3` певним префіксом шляху, і тоді кожна операція з файлами, яка використовує ваш обмежений диск, використовуватиме вказаний префікс:
 
 ```php
 's3-videos' => [
@@ -172,7 +176,7 @@ You may create a path scoped instance of any existing filesystem disk by definin
 ],
 ```
 
-If you would like to specify that any filesystem disk should be "read-only", you may include the `read-only` configuration option in the disk's configuration array:
+Якщо ви бажаєте вказати, що будь-який диск файлової системи має бути «тільки для читання», ви можете додати параметр конфігурації `read-only` в масив конфігурації диска:
 
 ```php
 's3-videos' => [
@@ -184,33 +188,39 @@ If you would like to specify that any filesystem disk should be "read-only", you
 
 <a name="amazon-s3-compatible-filesystems"></a>
 
-### Amazon S3 Compatible Filesystems
+### Сумісні файлові системи Amazon S3
 
-By default, your application's `filesystems` configuration file contains a disk configuration for the `s3` disk. In addition to using this disk to interact with Amazon S3, you may use it to interact with any S3 compatible file storage service such as [MinIO](https://github.com/minio/minio) or [DigitalOcean Spaces](https://www.digitalocean.com/products/spaces/).
+За замовчуванням конфігураційний файл `filesystems.php` вашого додатка, містить конфігурацію для диска `s3`. Окрім використання цього диска для взаємодії з Amazon S3, ви можете використовувати його для взаємодії з будь-яким S3-сумісним сервісом зберігання файлів, таким як [MinIO](https://github.com/minio/minio або [DigitalOcean Spaces](https://www.digitalocean.com/products/spaces/).
 
-Typically, after updating the disk's credentials to match the credentials of the service you are planning to use, you only need to update the value of the `endpoint` configuration option. This option's value is typically defined via the `AWS_ENDPOINT` environment variable:
+Як правило, після оновлення облікових даних диска відповідно до облікових даних служби, яку ви плануєте використовувати, вам потрібно лише оновити значення `endpoint` параметра конфігурації. Значення цього параметра зазвичай визначається через змінну середовища `AWS_ENDPOINT`:
 
-    'endpoint' => env('AWS_ENDPOINT', 'https://minio:9000'),
+```php
+'endpoint' => env('AWS_ENDPOINT', 'https://minio:9000'),
+```
 
 <a name="obtaining-disk-instances"></a>
 
-## Obtaining Disk Instances
+## Отримання екземплярів диска
 
-The `Storage` facade may be used to interact with any of your configured disks. For example, you may use the `put` method on the facade to store an avatar on the default disk. If you call methods on the `Storage` facade without first calling the `disk` method, the method will automatically be passed to the default disk:
+Фасад `Storage` можна використовувати для взаємодії з будь-яким із налаштованих дисків. Наприклад, ви можете використовувати метод `put` фасаду, щоб зберегти аватар на диску за замовчуванням. Якщо ви викликаєте методи фасада `Storage` без попереднього виклику метода `disk`, метод буде автоматично передано на диск за замовчуванням:
 
-    use Illuminate\Support\Facades\Storage;
+```php
+use Illuminate\Support\Facades\Storage;
 
-    Storage::put('avatars/1', $content);
+Storage::put('avatars/1', $content);
+```
 
-If your application interacts with multiple disks, you may use the `disk` method on the `Storage` facade to work with files on a particular disk:
+Якщо ваш додаток взаємодіє з декількома дисками, ви можете використовувати метод `disk` фасада `Storage` для роботи з файлами на певному диску:
 
-    Storage::disk('s3')->put('avatars/1', $content);
+```php
+Storage::disk('s3')->put('avatars/1', $content);
+```
 
 <a name="on-demand-disks"></a>
 
-### On-Demand Disks
+### Диски на вимогу
 
-Sometimes you may wish to create a disk at runtime using a given configuration without that configuration actually being present in your application's `filesystems` configuration file. To accomplish this, you may pass a configuration array to the `Storage` facade's `build` method:
+Іноді вам може знадобитись створити диск під час виконання, використовуючи задану конфігурацію, за фактичної відсутності цієї конфігурації в конфігураційному файлі `filesystems` вашого додатка. Щоб досягти цього, ви можете передати масив конфігурації методу `build` фасада `Storage`:
 
 ```php
 use Illuminate\Support\Facades\Storage;
@@ -225,149 +235,175 @@ $disk->put('image.jpg', $content);
 
 <a name="retrieving-files"></a>
 
-## Retrieving Files
+## Отримання файлів
 
-The `get` method may be used to retrieve the contents of a file. The raw string contents of the file will be returned by the method. Remember, all file paths should be specified relative to the disk's "root" location:
+Метод `get` можна використовувати для отримання вмісту файла. Необроблений рядковий вміст файла буде повернено методом. Пам’ятайте, що всі шляхи до файлів мають бути вказані відносно «root» розташування диска:
 
-    $contents = Storage::get('file.jpg');
+```php
+$contents = Storage::get('file.jpg');
+```
 
-The `exists` method may be used to determine if a file exists on the disk:
+Щоб визначити, чи існує файл на диску, можна використовувати метод `exists`:
 
-    if (Storage::disk('s3')->exists('file.jpg')) {
-        // ...
-    }
+```php
+if (Storage::disk('s3')->exists('file.jpg')) {
+    // ...
+}
+```
 
-The `missing` method may be used to determine if a file is missing from the disk:
+Щоб визначити, чи відсутній файл на диску, можна використати метод `missing`:
 
-    if (Storage::disk('s3')->missing('file.jpg')) {
-        // ...
-    }
+```php
+if (Storage::disk('s3')->missing('file.jpg')) {
+    // ...
+}
+```
 
 <a name="downloading-files"></a>
 
-### Downloading Files
+### Завантаження файлів
 
-The `download` method may be used to generate a response that forces the user's browser to download the file at the given path. The `download` method accepts a filename as the second argument to the method, which will determine the filename that is seen by the user downloading the file. Finally, you may pass an array of HTTP headers as the third argument to the method:
+Метод `download` може бути використаний для створення відповіді, яка змушує браузер користувача завантажити файл за вказаним шляхом. Метод `download` приймає ім’я файла другим аргументом, який визначатиме ім’я файла, яке бачить користувач, під час завантаження файла. Нарешті, ви можете передати масив HTTP-заголовків третім аргументом:
 
-    return Storage::download('file.jpg');
+```php
+return Storage::download('file.jpg');
 
-    return Storage::download('file.jpg', $name, $headers);
+return Storage::download('file.jpg', $name, $headers);
+```
 
 <a name="file-urls"></a>
 
-### File URLs
+### URL-адреси файлів
 
-You may use the `url` method to get the URL for a given file. If you are using the `local` driver, this will typically just prepend `/storage` to the given path and return a relative URL to the file. If you are using the `s3` driver, the fully qualified remote URL will be returned:
+Ви можете використовувати метод `url`, щоб отримати певну URL-адресу файла. Якщо ви використовуєте `local` драйвер, це зазвичай просто додає `/storage` до заданого шляху та повертає відносну URL-адресу до файла. Якщо ви використовуєте драйвер `s3`, буде повернуто повну віддалену URL-адресу:
 
-    use Illuminate\Support\Facades\Storage;
+```php
+use Illuminate\Support\Facades\Storage;
 
-    $url = Storage::url('file.jpg');
+$url = Storage::url('file.jpg');
+```
 
-When using the `local` driver, all files that should be publicly accessible should be placed in the `storage/app/public` directory. Furthermore, you should [create a symbolic link](#the-public-disk) at `public/storage` which points to the `storage/app/public` directory.
+Під час використання `local` драйвера всі файли, які мають бути загальнодоступними, слід розташовувати в каталозі`storage/app/public`. Крім того, ви повинні [створити символічне посилання](#the-public-disk) на `public/storage`, яке вказує на каталог `storage/app/public`.
 
 > **Warning**  
-> When using the `local` driver, the return value of `url` is not URL encoded. For this reason, we recommend always storing your files using names that will create valid URLs.
+> Під час використання драйвера `local`, значення `url`, яке повертається, не кодується URL-адресою. З цієї причини ми рекомендуємо завжди зберігати ваші файли, використовуючи імена, які створять дійсні URL-адреси.
 
 <a name="temporary-urls"></a>
 
-#### Temporary URLs
+#### Тимчасові URL-адреси
 
-Using the `temporaryUrl` method, you may create temporary URLs to files stored using the `s3` driver. This method accepts a path and a `DateTime` instance specifying when the URL should expire:
+Використовуючи метод `temporaryUrl`, ви можете створювати тимчасові URL-адреси для файлів, які зберігаються за допомогою драйвера `s3`. Цей метод приймає шлях і екземпляр `DateTime`, який визначатиме, термін дії URL:
 
-    use Illuminate\Support\Facades\Storage;
+```php
+use Illuminate\Support\Facades\Storage;
 
-    $url = Storage::temporaryUrl(
-        'file.jpg', now()->addMinutes(5)
-    );
+$url = Storage::temporaryUrl(
+    'file.jpg', now()->addMinutes(5)
+);
+```
 
-If you need to specify additional [S3 request parameters](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html#RESTObjectGET-requests), you may pass the array of request parameters as the third argument to the `temporaryUrl` method:
+Якщо вам потрібно вказати додаткові [параметри запита S3](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html#RESTObjectGET-requests), ви можете передати масив параметрів запита як третій аргумент методу `temporaryUrl`:
 
-    $url = Storage::temporaryUrl(
-        'file.jpg',
-        now()->addMinutes(5),
-        [
-            'ResponseContentType' => 'application/octet-stream',
-            'ResponseContentDisposition' => 'attachment; filename=file2.jpg',
-        ]
-    );
+```php
+$url = Storage::temporaryUrl(
+    'file.jpg',
+    now()->addMinutes(5),
+    [
+        'ResponseContentType' => 'application/octet-stream',
+        'ResponseContentDisposition' => 'attachment; filename=file2.jpg',
+    ]
+);
+```
 
-If you need to customize how temporary URLs are created for a specific storage disk, you can use the `buildTemporaryUrlsUsing` method. For example, this can be useful if you have a controller that allows you to download files stored via a disk that doesn't typically support temporary URLs. Usually, this method should be called from the `boot` method of a service provider:
+Якщо вам потрібно налаштувати спосіб створення тимчасових URL-адрес для певного диска зберігання, ви можете скористатися методом `buildTemporaryUrlsUsing`. Наприклад, це може бути корисним, якщо у вас є контролер, який дозволяє завантажувати файли, які зберігаються на диску, який зазвичай не підтримує тимчасові URL-адреси. Зазвичай цей метод слід викликати з методу `boot` постачальника служб:
 
-    <?php
+```php
+<?php
 
-    namespace App\Providers;
+namespace App\Providers;
 
-    use Illuminate\Support\Facades\Storage;
-    use Illuminate\Support\Facades\URL;
-    use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
-    class AppServiceProvider extends ServiceProvider
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Завантажте будь-які служби додатка.
+     *
+     * @return void
+     */
+    public function boot()
     {
-        /**
-         * Bootstrap any application services.
-         *
-         * @return void
-         */
-        public function boot()
-        {
-            Storage::disk('local')->buildTemporaryUrlsUsing(function ($path, $expiration, $options) {
-                return URL::temporarySignedRoute(
-                    'files.download',
-                    $expiration,
-                    array_merge($options, ['path' => $path])
-                );
-            });
-        }
+        Storage::disk('local')->buildTemporaryUrlsUsing(function ($path, $expiration, $options) {
+            return URL::temporarySignedRoute(
+                'files.download',
+                $expiration,
+                array_merge($options, ['path' => $path])
+            );
+        });
     }
+}
+```
 
 <a name="url-host-customization"></a>
 
-#### URL Host Customization
+#### Налаштування хосту URL
 
-If you would like to pre-define the host for URLs generated using the `Storage` facade, you may add a `url` option to the disk's configuration array:
+Якщо ви бажаєте попередньо визначити хост для URL-адрес, згенерованих за допомогою фасаду `Storage`, ви можете додати параметр `url` до масиву конфігурації диска:
 
-    'public' => [
-        'driver' => 'local',
-        'root' => storage_path('app/public'),
-        'url' => env('APP_URL').'/storage',
-        'visibility' => 'public',
-    ],
+```php
+'public' => [
+    'driver' => 'local',
+    'root' => storage_path('app/public'),
+    'url' => env('APP_URL').'/storage',
+    'visibility' => 'public',
+],
+```
 
 <a name="file-metadata"></a>
 
-### File Metadata
+### Метадані файла
 
-In addition to reading and writing files, Laravel can also provide information about the files themselves. For example, the `size` method may be used to get the size of a file in bytes:
+Окрім читання та запису файлів, Laravel також може надавати інформацію про самі файли. Наприклад, метод `size` можна використовувати для отримання розміру файла в байтах:
 
-    use Illuminate\Support\Facades\Storage;
+```php
+use Illuminate\Support\Facades\Storage;
 
-    $size = Storage::size('file.jpg');
+$size = Storage::size('file.jpg');
+```
 
-The `lastModified` method returns the UNIX timestamp of the last time the file was modified:
+Метод `lastModified` повертає мітку часу UNIX останньої зміни файлу:
 
-    $time = Storage::lastModified('file.jpg');
+```php
+$time = Storage::lastModified('file.jpg');
+```
 
 <a name="file-paths"></a>
 
-#### File Paths
+#### Шляхи до файлів
 
-You may use the `path` method to get the path for a given file. If you are using the `local` driver, this will return the absolute path to the file. If you are using the `s3` driver, this method will return the relative path to the file in the S3 bucket:
+Ви можете використати метод `path`, щоб отримати шлях до певного файлу. Якщо ви використовуєте драйвер `local`, буде повернено абсолютний шлях до файлу. Якщо ви використовуєте драйвер `s3`, цей метод поверне відносний шлях до файлу в сегменті S3:
 
-    use Illuminate\Support\Facades\Storage;
+```php
+use Illuminate\Support\Facades\Storage;
 
-    $path = Storage::path('file.jpg');
+$path = Storage::path('file.jpg');
+```
 
 <a name="storing-files"></a>
 
-## Storing Files
+## Зберігання файлів
 
-The `put` method may be used to store file contents on a disk. You may also pass a PHP `resource` to the `put` method, which will use Flysystem's underlying stream support. Remember, all file paths should be specified relative to the "root" location configured for the disk:
+Метод `put` може бути використаний для зберігання вмісту файла на диску. Ви також можете передати `resource` PHP методу `put`, який використовуватиме базову підтримку потоку Flysystem. Пам’ятайте, що всі шляхи до файлів мають бути вказані відносно «root» розташування, налаштованого для диска:
 
-    use Illuminate\Support\Facades\Storage;
+```php
+use Illuminate\Support\Facades\Storage;
 
-    Storage::put('file.jpg', $contents);
+Storage::put('file.jpg', $contents);
 
-    Storage::put('file.jpg', $resource);
+Storage::put('file.jpg', $resource);
+```
 
 <a name="failed-writes"></a>
 

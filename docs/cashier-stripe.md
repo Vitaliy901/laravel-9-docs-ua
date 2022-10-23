@@ -49,12 +49,12 @@
   - [Платежі за рахунком-фактурою](#charge-with-invoice)
   - [Створення платіжних намірів](#creating-payment-intents)
   - [Відшкодування платежів](#refunding-charges)
-- [Перевірка](#checkout)
-  - [Перевірка товару](#product-checkouts)
-  - [Перевірка одноразовх платежів](#single-charge-checkouts)
-  - [Перевірка підписників](#subscription-checkouts)
+- [Оформлення](#checkout)
+  - [Оформлення товару](#product-checkouts)
+  - [Оформлення одноразових платежів](#single-charge-checkouts)
+  - [Оформлення підписки](#subscription-checkouts)
   - [Збір податкових IDs](#collecting-tax-ids)
-  - [Гостьові перевірки](#guest-checkouts)
+  - [Гостьове оформлення](#guest-checkouts)
 - [Рахунок-фактура](#invoices)
   - [Отримання рахунків](#retrieving-invoices)
   - [Майбутні рахунки](#upcoming-invoices)
@@ -63,7 +63,7 @@
 - [Опрацювання невдалих платежів](#handling-failed-payments)
 - [Надійна автентифікація клієнта (SCA)](<#strong-customer-authentication-(SCA)>)
   - [Платежі, які вимагають додаткового підтвердження](#payments-requiring-additional-confirmation)
-  - [Повідомлення про оплату поза сеансом](#off-session-payment-notifications)
+  - [Повідомлення про оплату поза сесіями](#off-session-payment-notifications)
 - [Stripe SDK](#stripe-sdk)
 - [Тестування](#testing)
 
@@ -230,7 +230,7 @@ public function boot()
 Щоб цей функціонал працювала належним чином, платіжні дані вашого клієнта, такі як ім’я клієнта, адреса та податковий номер, мають бути синхронізовані зі Stripe. Для цього ви можете використовувати методи [синхронізації даних клієнта](#syncing-customer-data-with-stripe) та [ID платника податків](#tax-ids), які запропоновані Cashier.
 
 > **Warning**  
-> На жаль, від тепер, податок не розраховується для [одноразових зборів](#single-charges) або [перевірки одноразовх зборів](#single-charge-checkouts). Крім того, під час бета-тестування податок Stripe доступний лише за запрошеннями. Ви можете подати запит на доступ до оподаткування Stripe через [веб-сайт Stripe Tax](https://stripe.com/tax#request-access).
+> На жаль, від тепер, податок не розраховується для [одноразових зборів](#single-charges) або [оформлення одноразовх зборів](#single-charge-checkouts). Крім того, під час бета-тестування податок Stripe доступний лише за запрошеннями. Ви можете подати запит на доступ до оподаткування Stripe через [веб-сайт Stripe Tax](https://stripe.com/tax#request-access).
 
 <a name="logging"></a>
 
@@ -1345,7 +1345,7 @@ Route::post('/user/subscribe', function (Request $request) {
 });
 ```
 
-Ви також можете розпочати передплату з обмеженнями через [Stripe Checkout](#checkout):
+Ви також можете розпочати передплату з обмеженнями через [Stripe оформлення](#checkout):
 
 ```php
 $checkout = Auth::user()
@@ -2114,17 +2114,17 @@ class ApiInvoiceRenderer implements InvoiceRenderer
 
 <a name="checkout"></a>
 
-## Перевірка
+## Оформлення
 
-Cashier Stripe також підтримує [Stripe Checkout](https://stripe.com/payments/checkout). Stripe Checkout позбавляє від проблем реалізації власних сторінок для прийому платежів, надаючи попередньо створену сторінку платежів.
+Cashier Stripe також підтримує [Stripe оформлення](https://stripe.com/payments/checkout). Stripe оформлення позбавляє від проблем реалізації власних сторінок для прийому платежів, надаючи попередньо створену сторінку платежів.
 
-Наступна документація містить інформацію про те, як почати використовувати Stripe Checkout із Cashier. Щоб дізнатися більше про Stripe Checkout, вам слід також переглянути власну документацію Stripe щодо Checkout.
+Наступна документація містить інформацію про те, як почати використовувати Stripe оформлення із Cashier. Щоб дізнатися більше про Stripe оформлення, вам слід також переглянути власну документацію Stripe щодо оформлення.
 
 <a name="product-checkouts"></a>
 
-### Перевірка товару
+### Оформлення товару
 
-Ви можете здійснити перевірку існуючого продукту, який було створено на вашій інформаційній панелі Stripe, використовуючи метод `checkout` на платній моделі. Метод `checkout` ініціює новий сеанс перевірки Stripe. За замовчуванням вам потрібно передати Stripe Price ID:
+Ви можете здійснити оформлення існуючого продукту, який було створено на вашій інформаційній панелі Stripe, використовуючи метод `checkout` на платній моделі. Метод `checkout` ініціює новий сеанс оформлення Stripe. За замовчуванням вам потрібно передати Stripe Price ID:
 
 ```php
 use Illuminate\Http\Request;
@@ -2157,7 +2157,7 @@ Route::get('/product-checkout', function (Request $request) {
 });
 ```
 
-Визначаючи параметр перевірки для `success_url`, ви можете вказати Stripe додати перевірку ID сесії як параметр рядка запиту під час виклику вашої URL-адреси. Для цього додайте літеральний рядок `{CHECKOUT_SESSION_ID}` до свого рядка запита `success_url`. Stripe замінить цей заповнювач на фактичну перевірку ID сесії:
+Визначаючи параметр оформлення для `success_url`, ви можете вказати Stripe додати ID сесії оформлення як параметр рядка запиту під час виклику вашої URL-адреси. Для цього додайте літеральний рядок `{CHECKOUT_SESSION_ID}` до свого рядка запита `success_url`. Stripe замінить цей заповнювач на фактичне ID сесії оформлення:
 
 ```php
 use Illuminate\Http\Request;
@@ -2182,7 +2182,7 @@ Route::get('/checkout-success', function (Request $request) {
 
 #### Промо-коди
 
-За замовчуванням Stripe Checkout не дозволяє [користувачам активувати промо-коди](https://stripe.com/docs/billing/subscriptions/coupons). На щастя, є простий спосіб увімкнути їх для вашої сторінки Checkout. Для цього ви можете викликати метод `allowPromotionCodes`:
+За замовчуванням Stripe оформлення не дозволяє [користувачам активувати промо-коди](https://stripe.com/docs/billing/subscriptions/coupons). На щастя, є простий спосіб увімкнути їх для вашої сторінки оформлення. Для цього ви можете викликати метод `allowPromotionCodes`:
 
 ```php
 use Illuminate\Http\Request;
@@ -2196,9 +2196,9 @@ Route::get('/product-checkout', function (Request $request) {
 
 <a name="single-charge-checkouts"></a>
 
-#### Перевірка одноразовх платежів
+#### Оформлення одноразових платежів
 
-Ви також можете здійснити просте стягнення оплати за спеціальний продукт, який не було створено на інформаційній панелі Stripe. Для цього ви можете використати метод `checkoutCharge` на платіжній моделі та передати йому суму, яка підлягає оплаті, назву продукту та необов’язкову кількість. Коли клієнт відвідує цей маршрут, він буде перенаправлений на сторінку оформлення замовлення Stripe:
+Ви також можете здійснити просте стягнення оплати за спеціальний продукт, який не було створено на інформаційній панелі Stripe. Для цього ви можете використати метод `checkoutCharge` на платіжній моделі та передати йому суму, яка підлягає оплаті, назву продукту та необов’язкову кількість. Коли клієнт відвідає цей маршрут, він буде перенаправлений на сторінку оформлення замовлення Stripe:
 
 ```php
 use Illuminate\Http\Request;
@@ -2208,10 +2208,279 @@ Route::get('/charge-checkout', function (Request $request) {
 });
 ```
 
-Під час використання методу `checkoutCharge` Stripe завжди створюватиме новий продукт і ціну на панелі інструментів Stripe. Тому ми рекомендуємо створювати продукти на інформаційній панелі Stripe і замість цього використовувати метод `checkout` замовлення.
+> **Warning**  
+> Під час використання метода `checkoutCharge` Stripe завжди створюватиме новий продукт і ціну на панелі інструментів Stripe. Тому ми рекомендуємо створювати продукти на інформаційній панелі Stripe і замість цього використовувати метод `checkout` замовлення.
+
+<a name="subscription-checkouts"></a>
+
+### Оформлення підписки
+
+> **Warning**  
+> Щоб використовувати Stripe оформлення для підписок, ви повинні ввімкнути вебхук `customer.subscription.created` на інформаційній панелі Stripe. Цей вебхук створить запис про підписку у вашій базі даних і збереже всі відповідні елементи підписки.
+
+Ви також можете використовувати Stripe оформлення, щоб розпочати підписку. Після визначення вашої підписки за допомогою методів конструктора підписок Cashier ви можете викликати метод `checkout` . Коли клієнт відвідує цей маршрут, він буде перенаправлений на сторінку оформлення замовлення Stripe:
+
+```php
+use Illuminate\Http\Request;
+
+Route::get('/subscription-checkout', function (Request $request) {
+    return $request->user()
+        ->newSubscription('default', 'price_monthly')
+        ->checkout();
+});
+```
+
+Так само, як і під час оформлення продукту, ви можете налаштувати URL-адреси успіху та скасування:
+
+```php
+use Illuminate\Http\Request;
+
+Route::get('/subscription-checkout', function (Request $request) {
+    return $request->user()
+        ->newSubscription('default', 'price_monthly')
+        ->checkout([
+            'success_url' => route('your-success-route'),
+            'cancel_url' => route('your-cancel-route'),
+        ]);
+});
+```
+
+Звичайно, ви також можете активувати промо-коди для оформлення підписки:
+
+```php
+use Illuminate\Http\Request;
+
+Route::get('/subscription-checkout', function (Request $request) {
+    return $request->user()
+        ->newSubscription('default', 'price_monthly')
+        ->allowPromotionCodes()
+        ->checkout();
+});
+```
+
+> **Warning**  
+> На жаль, Stripe оформлення не підтримує всі варіанти оплати підписки на початку підписки. Використання метода `anchorBillingCycleOn` в конструкторі підписок, налаштування пропорційної поведінки або налаштування поведінки платежу не матиме жодного ефекту під час сесій оформлення Stripe. Зверніться до [документації API сесій оформлення Stripe](https://stripe.com/docs/api/checkout/sessions/create), щоб дізнатися, які параметри доступні.
+
+<a name="stripe-checkout-&-trial-periods"></a>
+
+#### Оформлення Stripe і пробні періоди
+
+Звичайно, ви можете визначити пробний період під час створення підписки, яка буде завершена за допомогою Stripe оформлення:
+
+```php
+$checkout = Auth::user()->newSubscription('default', 'price_monthly')
+    ->trialDays(3)
+    ->checkout();
+```
+
+Однак пробний період має становити принаймні 48 годин, що є мінімальним часом, який підтримується оформленням Stripe
+
+<a name="subscriptions-&-webhooks"></a>
+
+#### Підписки та веб-гачки
+
+Пам’ятайте, що Stripe і Cashier оновлюють статуси підписки через веб-гачки, тому існує ймовірність, що підписка може бути ще не активною, коли клієнт повернеться до додатка після введення платіжної інформації. Для опрацювання цього сценарію ви можете показати повідомлення, яке інформує користувача про те, що його платіж або підписка очікують на розгляд.
+
+<a name="collecting-tax-ids"></a>
+
+### Збір податкових IDs
+
+Оформлення також підтримує отримання податкового ID клієнта. Щоб увімкнути це під час сесії оформлення замовлення, викличте метод `collectTaxIds` під час створення сеансу:
+
+```php
+$checkout = $user->collectTaxIds()->checkout('price_tshirt');
+```
+
+Коли цей метод викликається, новий чекбокс стає доступним для клієнта, який дозволяє йому вказати, чи вони купують як компанія. Якщо так, вони матимуть можливість надати свій податковий ID.
+
+> **Warning**  
+> Якщо ви вже налаштували [автоматичний збір податків](#tax-configuration) у постачальника служб вашого додатка, ця функція буде ввімкнена автоматично, і немає необхідності викликати метод `collectTaxIds`.
+
+<a name="guest-checkouts"></a>
+
+### Гостьові оформлення
+
+Використовуючи метод `Checkout::guest`, ви можете ініціювати сеанси оформлення для гостей вашого додатка, які не мають «облікового запису»:
+
+```php
+use Illuminate\Http\Request;
+use Laravel\Cashier\Checkout;
+
+Route::get('/product-checkout', function (Request $request) {
+    return Checkout::guest()->create('price_tshirt', [
+        'success_url' => route('your-success-route'),
+        'cancel_url' => route('your-cancel-route'),
+    ]);
+});
+```
+
+Так само, як і під час створення сеансів оформлення замовлення для існуючих користувачів, ви можете використовувати додаткові методи, доступні в екземплярі `Laravel\Cashier\CheckoutBuilder`, щоб налаштувати гостьовий сеанс оформлення замовлення:
+
+```php
+use Illuminate\Http\Request;
+use Laravel\Cashier\Checkout;
+
+Route::get('/product-checkout', function (Request $request) {
+    return Checkout::guest()
+        ->withPromotionCode('promo-code')
+        ->create('price_tshirt', [
+            'success_url' => route('your-success-route'),
+            'cancel_url' => route('your-cancel-route'),
+        ]);
+});
+```
+
+Після того, як буде завершено гостьове оформлення, Stripe може надіслати подію веб-гачка `checkout.session.completed`, тому переконайтеся, що ви [налаштували свій веб-гачок Stripe](https://dashboard.stripe.com/login?redirect=%2Fwebhooks) так, щоб ця подія надсилалася вашому додатку. Після того, як на інформаційній панелі Stripe було ввімкнено веб-гачок, ви можете [працювати з ним за допомогою Cashier](#handling-stripe-webhooks). Об’єкт, який міститься в корисному навантаженні вебхука, буде [об’єктом оформлення](https://stripe.com/docs/api/checkout/sessions/object), який ви можете перевірити, щоб виконати замовлення клієнта.
+
+<a name="handling-failed-payments"></a>
+
+## Опрацювання невдалих платежів
+
+Іноді платежі за підписки або одноразові платежі можуть бути невдалими. Коли це станеться, Cashier створить виняток `Laravel\Cashier\Exceptions\IncompletePayment`, який повідомить вам, що це сталося. Після вилову цього винятку у вас є два варіанти дій.
+
+По-перше, ви можете перенаправити свого клієнта на спеціальну сторінку підтвердження платежу, яка включена в «Cashier». Ця сторінка вже має пов’язаний названий маршрут, зареєстрований через постачальника служб «Cashier». Отже, ви можете впіймати виняток `IncompletePayment` і перенаправити користувача на сторінку підтвердження платежу:
+
+```php
+use Laravel\Cashier\Exceptions\IncompletePayment;
+
+try {
+    $subscription = $user->newSubscription('default', 'price_monthly')
+        ->create($paymentMethod);
+} catch (IncompletePayment $exception) {
+    return redirect()->route(
+        'cashier.payment',
+        [$exception->payment->id, 'redirect' => route('home')]
+    );
+}
+```
+
+На сторінці підтвердження платежу клієнта буде запропоновано ще раз ввести дані своєї кредитної картки та виконати будь-які додаткові дії, які вимагає Stripe, наприклад підтвердження «3D Secure». Після підтвердження платежу користувач буде перенаправлено на URL-адресу, надану параметром `redirect`, зазначеним вище. Після перенаправлення, до URL-адреси буде додано змінні рядка запита `message` (рядок) і `success` (ціле число). Платіжна сторінка наразі підтримує такі типи способів оплати:
+
+- Credit Cards
+- Alipay
+- Bancontact
+- BECS Direct Debit
+- EPS
+- Giropay
+- iDEAL
+- SEPA Direct Debit
+
+Крім того, ви можете дозволити Stripe опрацювати підтвердження платежу за вас. У цьому випадку замість перенаправлення на сторінку підтвердження платежу ви можете [налаштувати електронні листи Stripe для автоматичних платежів](https://dashboard.stripe.com/login?redirect=%2Faccount%2Fbilling%2Fautomatic) на інформаційній панелі Stripe. Однак, якщо буде виявлено виняток `IncompletePayment`, ви все одно повинні повідомити користувача, що він отримає електронний лист із подальшими інструкціями щодо підтвердження платежу.
+
+Винятки для платежів можуть створюватися для наступних методів: `charge`, `invoiceFor`, and `invoice` на моделях, які використовують трейт `Billable`. Під час взаємодії з підписками метод `create` у `SubscriptionBuilder`, а також методи `incrementAndInvoice` і `swapAndInvoice` у моделях `Subscription` і `SubscriptionItem` можуть створювати винятки неповної оплати.
+
+Визначити, чи наявна підписка має неповний платіж, можна виконати за допомогою метода `hasIncompletePayment` у платіжній моделі або екземплярі підписки:
+
+```php
+if ($user->hasIncompletePayment('default')) {
+    //
+}
+
+if ($user->subscription('default')->hasIncompletePayment()) {
+    //
+}
+```
+
+Ви можете отримати конкретний статус незавершеного платежу, перевіривши властивість `payment` в екземплярі винятку:
+
+```php
+use Laravel\Cashier\Exceptions\IncompletePayment;
+
+try {
+    $user->charge(1000, 'pm_card_threeDSecure2Required');
+} catch (IncompletePayment $exception) {
+    // Отримати статус наміру оплати...
+    $exception->payment->status;
+
+    // Перевірте конкретні умови...
+    if ($exception->payment->requiresPaymentMethod()) {
+        // ...
+    } elseif ($exception->payment->requiresConfirmation()) {
+        // ...
+    }
+}
+```
+
+<a name="strong-customer-authentication"></a>
+
+## Надійна автентифікація клієнта
+
+Якщо ваш бізнес або один із ваших клієнтів розташовані в Європі, вам потрібно буде дотримуватися правил ЄС щодо надійної автентифікації клієнтів (SCA). Ці правила були введені у вересні 2019 року Європейським Союзом, щоб запобігти шахрайству з платежами. На щастя, Stripe і Cashier готові створювати додатки, сумісні з SCA.
+
+> **Warning**  
+> Перш ніж почати, перегляньте [посібник Stripe щодо PSD2 і SCA](https://stripe.com/guides/strong-customer-authentication), а також їхню [документацію щодо нових API SCA](https://stripe.com/docs/strong-customer-authentication).
+
+<a name="payments-requiring-additional-confirmation"></a>
+
+### Платежі, які вимагають додаткового підтвердження
+
+Правила SCA часто вимагають додаткової перевірки для підтвердження та опрацювання платежу. Коли це станеться, Cashier створить виняток `Laravel\Cashier\Exceptions\IncompletePayment`, який повідомить вам, що потрібна додаткова перевірка. Додаткову інформацію про те, як опрацювати ці винятки, можна знайти в документації щодо [опрацювання невдалих платежів](#handling-failed-payments).
+
+Екрани підтвердження платежу, представлені Stripe або Cashier, можуть бути адаптовані до певного банку або платіжного потоку емітента картки та можуть містити додаткове підтвердження картки, тимчасова малих оплат, окрема автентифікація пристрою або інші форми перевірки.
+
+<a name="incomplete-and-past-due-state"></a>
+
+#### Неповний та прострочений стан
+
+Якщо платіж потребує додаткового підтвердження, підписка залишатиметься в стані `incomplete` або `past_due`, як зазначено в стовпці бази даних `stripe_status`. Cashier автоматично активує підписку клієнта, щойно буде підтверджено платіж і ваша заявка отримає повідомлення Stripe через веб-гачок про її завершення.
+
+Щоб отримати додаткові відомості про стани`incomplete` або `past_due`, зверніться до [нашої додаткової документації щодо цих станів](#incomplete-and-past-due-status).
+
+<a name="off-session-payment-notifications"></a>
+
+### Повідомлення про оплату поза сесіями
+
+Оскільки правила SCA вимагають від клієнтів час від часу перевіряти свої платіжні дані, навіть якщо підписка активна, Cashier може надіслати повідомлення клієнту, коли вимагається підтвердження платежу поза сеансом. Наприклад, це може статися під час поновлення підписки. Повідомлення про платіж Cashier можна ввімкнути, встановивши для змінної середовища `CASHIER_PAYMENT_NOTIFICATION` значення класу повідомлення. За замовчанням це повідомлення вимкнено. Звичайно, Cashier містить клас повідомленнь, який ви можете використовувати для цієї мети, але ви можете надати власний клас повідомлення, якщо бажаєте:
+
+```ini
+CASHIER_PAYMENT_NOTIFICATION=Laravel\Cashier\Notifications\ConfirmPayment
+```
+
+Щоб забезпечити доставку повідомлень про підтвердження платежу поза сеансом, переконайтеся, що [веб-гачок Stripe налаштовано](#handling-stripe-webhooks) для вашого додатка, та увімкнено веб-гачок `invoice.payment_action_required` на інформаційній панелі Stripe. Крім того, ваша оплачувана модель також має використовувати властивість Laravel `Illuminate\Notifications\Notifiable`.
+
+Повідомлення надсилатимуться, навіть якщо клієнти вручну здійснюють платіж, який вимагає додаткового підтвердження. На жаль, Stripe не може дізнатися, що оплата була здійснена вручну або поза сеансом. Але клієнт просто побачить повідомлення «Платіж успішно», якщо він відвідає сторінку платежу після підтвердження свого платежу. Клієнту не буде дозволено випадково підтверджувати один і той самий платіж двічі та випадково стягувати наступну плату.
+
+<a name="stripe-sdk"></a>
+
+Багато об’єктів Cashier є обгортками навколо об’єктів Stripe SDK. Якщо ви хочете взаємодіяти з об’єктами Stripe напряму, ви можете зручно отримати їх за допомогою метода `asStripe`:
+
+```php
+$stripeSubscription = $subscription->asStripeSubscription();
+
+$stripeSubscription->application_fee_percent = 5;
+
+$stripeSubscription->save();
+```
+
+Ви також можете використовувати метод `updateStripeSubscription` для безпосереднього оновлення підписки на Stripe:
+
+```php
+$subscription->updateStripeSubscription(['application_fee_percent' => 5]);
+```
+
+Ви можете викликати метод `stripe` в класі Cashier, якщо хочете безпосередньо використовувати клієнт `Stripe\StripeClient`. Наприклад, ви можете використовувати цей метод для доступу до екземпляра `StripeClient` і отримання списку цін із вашого облікового запису Stripe:
+
+```php
+use Laravel\Cashier\Cashier;
+
+$prices = Cashier::stripe()->prices->all();
+```
 
 <a name="testing"></a>
 
-## Testing
+## Тестування
 
-For automated tests, including those executed within a CI environment, you may use [Laravel's HTTP Client](/docs/{{version}}/http-client#testing) to fake HTTP calls made to Paddle. Although this does not test the actual responses from Paddle, it does provide a way to test your application without actually calling Paddle's API.
+Під час тестування додатка, який використовує Cashier, ви можете імітувати фактичні HTTP-запити до Stripe API; однак це вимагає від вас частково перезапровадити власну поведінку Cashier. Тому ми рекомендуємо дозволити вашим тестам проходити справжній API Stripe. Хоч це й повільніше, це дає більше впевненості в тому, що ваш додаток працює належним чином, і будь-які повільні тести можна розміщувати у власній групі тестування PHPUnit.
+
+Під час тестування пам’ятайте, що сам Cashier вже має чудовий набір тестів, тому вам слід зосередитися лише на тестуванні передплати та платежів у вашому власному додтку, а не на кожній основній поведінці Cashier.
+
+Щоб розпочати, додайте _тестову_ версію секрету Stripe до файлу `phpunit.xml`:
+
+```html
+<env name="STRIPE_SECRET" value="sk_test_<your-key>" />
+```
+
+Тепер, коли ви взаємодієте з Cashier під час тестування, він надсилатиме фактичні запити API у ваше середовище тестування Stripe. Для зручності вам слід попередньо заповнити обліковий запис для тестування Stripe підписками / цінами, які ви можете використовувати під час тестування.
+
+> **Note**  
+> Щоб протестувати різноманітні сценарії виставлення рахунків, як-от відмови та збої кредитної картки, ви можете скористатися широким набором [номерів карток і токенів для тестування](https://stripe.com/docs/testing), які надає Stripe.
