@@ -35,7 +35,7 @@
   - [ ] [HTML-шаблони](./docs/views.md)
   - [ ] [Шаблонізатор Blade](./docs/blade.md)
   - [x] [Генерація URL-адрес](./docs/urls.md)
-  - [ ] [Сессія HTTP](./docs/session.md)
+  - [x] [Сесія HTTP](./docs/session.md)
   - [x] [Валідація](./docs/validation.md)
   - [ ] [Обробка помилок](./docs/errors.md)
   - [ ] [Логування](./docs/logging.md)
