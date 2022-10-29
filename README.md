@@ -27,7 +27,7 @@
   - [ ] [Фасади](./docs/facades.md)
 - #### Основи
   - [x] [Маршрутизація](./docs/routing.md)
-  - [ ] [Посередники](./docs/middleware.md)
+  - [x] [Посередники](./docs/middleware.md)
   - [ ] [Попередження атак CSRF](./docs/csrf.md)
   - [x] [Контроллери](./docs/controllers.md)
   - [x] [HTTP-запити](./docs/requests.md)
