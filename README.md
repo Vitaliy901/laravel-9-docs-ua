@@ -18,7 +18,7 @@
   - [ ] [Встановлення](./docs/installation.md)
   - [ ] [Конфігурування](./docs/configuration.md)
   - [ ] [Структура каталогів](./docs/structure.md)
-  - [ ] [Стартові комплекти](./docs/starter-kits.md)
+  - [ ] [Стартові пакунки](./docs/starter-kits.md)
   - [ ] [Розгортання](./docs/deployment.md)
 - #### Архітектурні концепції
   - [x] [Життевий цикл запитів](./docs/lifecycle.md)
@@ -32,7 +32,7 @@
   - [x] [Контроллери](./docs/controllers.md)
   - [x] [HTTP-запити](./docs/requests.md)
   - [x] [HTTP-відповіді](./docs/responses.md)
-  - [ ] [HTML-шаблони](./docs/views.md)
+  - [x] [HTML-шаблони](./docs/views.md)
   - [ ] [Шаблонізатор Blade](./docs/blade.md)
   - [x] [Генерація URL-адрес](./docs/urls.md)
   - [x] [Сесія HTTP](./docs/session.md)
