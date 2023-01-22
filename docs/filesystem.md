@@ -4,7 +4,7 @@
 - [Налаштування](#configuration)
   - [Локальний драйвер](#the-local-driver)
   - [Публічний диск](#the-public-disk)
-  - [Попередня підготовка дравера](#driver-prerequisites)
+  - [Попередня підготовка драйвера](#driver-prerequisites)
     - [Обмеженний шлях і Файлові системи лише для читання](#scoped-and-read-only-filesystems)
     - [Файлові системи сумісні з Amazon S3](#amazon-s3-compatible-filesystems)
 - [Доступ до дискових екземплярів](#obtaining-disk-instances)
