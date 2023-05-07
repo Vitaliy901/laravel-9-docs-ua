@@ -1,7 +1,7 @@
-# Життевий цикл запитів
+# Життєвий цикл запитів
 
 - [Вступ](#introduction)
-- [Огляд життевого циклу](#lifecycle-overview)
+- [Огляд життєвого циклу](#lifecycle-overview)
   - [Перші кроки](#first-steps)
   - [HTTP-ядро та ядро консолі](#http-console-kernels)
   - [Постачальники служб](#service-providers)
